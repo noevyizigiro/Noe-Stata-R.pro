@@ -1,0 +1,183 @@
+---
+title: "Regression Analysis (Econ 0211), Lab2 :Getting Ready for Regression"
+author: "Noe Vyizigiro"
+date: "March, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+## *Important packages (libraries) for this lab*:
+1. tidyverse: Contain libraries such as dplyr and ggplot, which are instrumental here
+2. purrr
+
+# load necessary libraries
+```{r setup, }
+
+library(tidyverse)
+if(!require("purrr")) install.packages("purrr")
+library(purrr) #this will help in summarizing the variable
+
+rm(list = ls()) #clear the environment
+```
+This version uses data converted using Stata
+# Load the data
+```{r}
+usa21<-read_csv("IPUMS_USA_2021_ACS.csv")
+
+# make some variables numeric
+columns <-c("incwage", "incearn", "year")
+usa21[, columns] <- lapply(columns, function(x) as.numeric(usa21[[x]]))
+
+```
+
+# 4. Looking at the earning variables
+
+*Creating a function that can take in multiple arguments(variable) and return a table of the variables with their summary statistics. We use function enquos to capture multiple variables as a list of quosures. We use map_dfr function from the package purrr to iterate over each variable, calculate summary statistics, and combine the results into a single data frame.*
+```{r}
+nv_sum<-function(datax,...){
+  vars<-enquos(...) # capture multiple variables and assign them to the variable vars
+  map_dfr(vars, function(varx){ # iterate over the variables in vars to compute summary statistics
+  var_name<-as_label(varx)
+  datax%>%
+    summarise(variable =var_name,
+              min =min({{varx}}, na.rm = TRUE),
+              mean =mean({{varx}}, na.rm=TRUE),
+              median =median(!!varx, na.rm =TRUE),
+              st.dev =sd(!!varx, na.rm =TRUE),
+              max=max(!!varx, na.rm = TRUE),
+              n =n()
+    ) 
+  })
+}
+# varx can be either between {{}} or start with !! to ensure that the column name passed to the function is correctly referenced within summarise
+nv_sum(usa21, incwage, incearn)
+
+
+```
+
+```{r}
+filtered_data<-usa21%>%
+  filter(age>=25 & age<=60)
+
+nv_sum(filtered_data, incwage) # call the nv_sum function created already
+```
+
+We only want to look at people with positive earnings (for now) so set all others to missing 
+set our earnings variable to missing if respondent has no employee income and/or is not in university for incomewage
+```{r}
+usa21$incwage[usa21$incwage==0]<-NA #replacing zeros in the incwage variable with NAs
+usa21_0<-usa21 %>% 
+  na.omit() # get rid of all missing values 
+
+```
+
+# 6. Look for an education variable and recorde
+```{r}
+table(usa21_0$educ)
+table(usa21_0$educd)
+ #or
+usa21_0%>%
+  count(educ)
+
+```
+## Generate numeric values of the values in variable educd
+
+```{r}
+usa21_0<-usa21_0%>%
+  mutate(educCode=with(usa21_0, match(educd, unique(educd))))
+```
+or the same thing can be achieved by:
+usa21_0$educCode = as.integer(factor(usa21_0$educd, levels = unique(usa21_0$educd)))
+
+## Summarize educd with educCode to see the matches
+```{r}
+
+# or we can group by educd and use the new dataset as an argument in our function nv_sum().
+grouped_data<-usa21_0%>%
+  group_by(educd)
+
+nv_sum(grouped_data, educCode)
+
+```
+
+
+## Generating a new variables "edyears" with numbers of years of education
+```{r}
+usa21_1<- usa21_0%>% 
+   mutate(edyearF =factor(educCode, c(2, 13, 8, 11, 9,7,24,3,6,22, 18, 19, 21, 16, 5, 17, 15, 20, 10, 14, 23, 12, 1, 4 ), 
+ labels=c('13','11','14','16','20','12','1','10','11','2','3','4','5','6','7','8','9','0','18','0','0','18','12','13')),
+ edyears = as.numeric(as.character(edyearF)))
+ 
+usa21_1
+
+```
+
+## Check if the match was successful
+```{r}
+usa21_1%>%
+ group_by(educd) %>% 
+  summarise(means = mean(edyears))
+```
+
+# 7. Relationship between wage and years of education
+```{r}
+edyear_usa21_1<-usa21_1%>%
+  group_by(edyears)
+nv_sum(edyear_usa21_1, incwage) # call the function nv_sum()
+ 
+```
+
+```{r}
+gredyear_usa21_1<-usa21_1%>%
+  group_by(edyears)%>%
+  filter(age>=25 & age<=60) %>% 
+  summarise(mean_wage=mean(incwage) )
+```
+
+# 8. Compare average earnings for college and non-college grads
+```{r}
+usa21_1%>%
+  mutate(college_grads =ifelse(edyears>=16,1,0))%>%
+  group_by(college_grads)%>%
+  filter(age>=25 & age<=60)%>%
+  summarise(mean_wage=mean(incwage) )
+```
+
+# 9.Graphs
+```{r}
+usa21_1%>%
+  filter(age>=25 & age<=60)%>%
+  ggplot(aes(edyears, incwage))+
+           geom_point()+
+  labs(
+    title = "Scatter Plot of Education vs. Earnings",
+    subtitle="2021 American Community Survey",
+    x="Years of education",y="wage($)"
+  )
+  
+```
+
+```{r}
+
+usa21_1%>%
+  filter(age>=25 & age<=60)%>%
+  ggplot(aes(edyears, incwage))+
+           geom_point()+
+  geom_smooth(method=lm, se =FALSE)+
+  labs(
+    title = "Scatter Plot of Education vs. Earnings",
+    subtitle="2021 American Community Survey",
+    x="Years of education",y="wage($)"
+  )
+  
+```
+
+
+
+
+
+
+
+

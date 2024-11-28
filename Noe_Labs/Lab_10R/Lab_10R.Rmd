@@ -1,0 +1,81 @@
+---
+title: "Regression Analysis (Econ 0211), Lab10: A brief Introduction to IV Regression in R"
+author: "Noe Vyizigiro"
+date: "May, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+# *Important packages/libraries for this lab:*
+1. tidyverse
+2. AER
+3. sandwich
+4. stargazer
+
+```{r, include=TRUE}
+
+library(tidyverse)
+
+if(!require("AER")) install.packages("AER") # used for IV_regression model
+library(AER)
+
+if(!require("stargazer")) install.packages("stargazer")
+library(stargazer)
+
+if(!require("sandwich")) install.packages("sandwich")
+library(sandwich) # for robust SE
+
+rm(list = ls()) # clear the invironment
+
+```
+
+# Read data
+```{r}
+fertility<-read_csv("fertility.csv")
+fertility
+```
+# 2-7. Estimating Regressions
+```{r, include=TRUE}
+# Estimate a naive regression
+m1<-lm(weeksm1~morekids, data = fertility)
+se1<-sqrt(diag(vcovHC(m1, type = "HC1"))) # robust standard errors
+
+# control more variables
+m2<-lm(weeksm1~morekids+agem1+black+hispan+othrace, data = fertility)
+se2<-sqrt(diag(vcovHC(m2, type="HC1")))
+
+# first stage regression
+m3<-lm(morekids~ samesex+agem1+black+hispan+othrace, data = fertility)
+se3<-sqrt(diag(vcovHC(m3, type = "HC1")))
+
+#predicted value of morekids
+fertility$morekids_hat<-predict(m3)
+
+#estimating second stage regression
+m4<-lm(weeksm1~morekids_hat+agem1+black+hispan+othrace, data = fertility)
+se4<-sqrt(diag(vcovHC(m4, type = "HC1")))
+```
+# Using one command to run an instrumental variable regression
+*we use a package "AER" to get a command ivreg, which works like lm. Regressors are separated from the instrument with a vertical line*
+```{r}
+iv<-ivreg(weeksm1~morekids+agem1+black+hispan+othrace|samesex+agem1+black+hispan+othrace, data = fertility)
+se5<-sqrt(diag(vcovHC(iv,type = "HC1")))
+```
+
+```{r}
+column_names<-c("wm1", "wm1","1.stage","2.stage", "IV_model")
+stargazer(m1,m2,m3,m4,iv,
+          se=list(se1, se2, se3, se4, se5),
+          type = "text",
+          out = "iv_example.txt",
+          title = "IV_example",
+          column.labels = column_names,
+          model.names = FALSE
+          
+)
+```
+
+
+

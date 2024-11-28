@@ -1,0 +1,196 @@
+---
+title: "Regression Analysis (Econ 0211), Lab8: Binary Dependent Variables"
+author: "Noe Vyizigiro"
+date: "April, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+# *Important packages/libraries for this lab*:
+1. tidyverse
+2. stargazer
+3. sandwich: robust st.err
+4. broom: extract coefficients/margins from linear models
+5. lmtest: model tests
+6. mfx: computing marginal effects for nonlinear models
+
+
+```{r, include=FALSE}
+library(tidyverse) 
+
+if(!require("stargazer")) install.packages("stargazer")
+library(stargazer)
+
+if(!require("mfx")) install.packages("mfx")
+library(mfx) #this helps calculate the average partial effect(APE) or the marginal effect
+
+if(!require("sandwich")) install.packages("sandwich")
+library(sandwich)
+
+if(!require("lmtest")) install.packages("lmtest")
+library(lmtest)
+library(margins)
+
+if(!require("broom")) install.packages("broom")
+library(broom)
+
+
+rm(list = ls())
+```
+
+# 1. Read data
+```{r, include=FALSE}
+titanic<-read_csv("titanic.csv")
+source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R") #load NV.R to access nv_sum() function for quick summary statistic table
+```
+#2 generate dummy variables
+
+```{r}
+titanic<-titanic%>%
+  mutate(female =ifelse(gender =="female", 1,0),
+         child = ifelse(age<16,1,0),
+         survive =ifelse(survived=="Survive", 1,0),
+         class1 =ifelse(pclass==1,1,0),
+         class2 =ifelse(pclass==2,1,0),
+         class3 =ifelse(pclass==3,1,0)
+         )
+#titanic<-titanic%>%
+  #na.omit()
+
+```
+
+# 3. descriptive statistic
+
+```{r}
+summary_table<-titanic%>%
+  group_by(pclass, gender)%>%
+  summarise(mean_survived = mean(survive, na.rm=TRUE),
+            )%>%
+  pivot_wider(names_from = pclass,
+              values_from = mean_survived)
+print(summary_table)
+
+```
+
+# 4. Regression
+```{r}
+m1<-lm(survive~child+female+class1+class2, data=titanic)
+m_se1<-sqrt(diag(vcovHC(m1,"HC1"))) #robust se
+summary(m1)
+
+
+```
+
+# 5. Estimate linear probability model
+```{r, include=TRUE}
+m2<-lm(survive~child+female+class1+class2, data=titanic, na.action = na.exclude)
+m_se2<-sqrt(diag(vcovHC(m2,"HC1"))) #robust se
+
+stargazer(m2,
+          se =list(m_se2),
+          type = "text",
+          out = "LPM.txt",
+          title = "LPM",
+          notes.append = TRUE)
+
+```
+
+# 6. Check predicted outcome
+```{r}
+summary(m2)
+
+titanic$yhat<-predict(m2) # predict yhat
+nv_sum(titanic, yhat, weight=FALSE) # summarise yhat
+
+```
+
+# 7. Probit Regression Model
+```{r, include=TRUE}
+p_model<-glm(survive~child+female+class1+class2,family = binomial(link = "probit"), data = titanic)
+#summary(p_model)
+logLik(p_model) # log Likelihood value
+lrtest(p_model) # test of overall significance of the model, including the log likelihood value
+
+l_model<-glm(survive~child+female+class1+class2,family = binomial(link = "logit"), data = titanic)
+#summary(l_model)
+logLik(l_model) # log Likelihood value
+
+stargazer(p_model, l_model,
+          type = "text",
+          out = "probability.txt",
+          title = "Probability Model",
+          notes.append = TRUE
+  
+)
+```
+
+# Computing margins/Partial Effects
+*To calculate the margins, we use the function logitmfx for a logit model and probitmfx for a probit model. Use tidy function from broom package to extract marginal effects for linear probability model*
+
+```{r}
+#linear
+lpm<-lm(survive~child+female+class1+class2, data=titanic, na.action = na.exclude)
+lpm_tidy<-tidy(lpm)
+lme <- lpm_tidy$estimate #extract margins (coefficients)
+lse <- lpm_tidy$std.error #extract st err
+
+margins(lpm) # coefficients of the lpm
+
+
+#probit
+pm<-glm(survive~child+female+class1+class2,family = binomial(link = "probit"), data = titanic) # probability model
+
+atmp<-probitmfx(survive~child+female+class1+class2, data = titanic, atmean = TRUE) # Marginal Effect at the average/ Partial Effect Average (PEA)
+atmep<-atmp$mfxest[,"dF/dx"] #margins
+atse<-atmp$mfxest[,"Std. Err."] #st.errors
+
+avmp<-probitmfx(survive~child+female+class1+class2, data = titanic, atmean = FALSE) # Average Marginal effect /Average Partial Effect (APE)
+avmep<-avmp$mfxest[,"dF/dx"] #margins
+avse<-avmp$mfxest[,"Std. Err."] #st.error
+
+#logit
+lm<-glm(survive~child+female+class1+class2,family = binomial(link = "logit"), data = titanic) # logit model
+
+atml<-logitmfx(survive~child+female+class1+class2, data = titanic, atmean = TRUE) # Marginal Effect at the average/ Partial Effect Average (PEA)
+atmel<-atml$mfxest[,"dF/dx"] #margins
+atsel<-atml$mfxest[,"Std. Err."] # st.error
+
+avml<-logitmfx(survive~child+female+class1+class2, data = titanic, atmean = FALSE) # Average Marginal effect /Average Partial Effect (APE)
+avmel<-avml$mfxest[,"dF/dx"] # margins
+avsel<-avml$mfxest[,"Std. Err."] # st.errors
+
+
+stargazer(lpm,lpm, pm,pm,pm,lm,lm,lm,
+          coef = list(NULL,lme,NULL, atmep, avmep,NULL, atmel, avmel),
+          se = list(NULL,lse, NULL, atse,avse,NULL,atsel,avsel),
+          type = "text",
+          out = "probability.txt",
+          title = "Probability Model",
+          notes.append = TRUE)
+```
+
+# we can make some predictions of survival based on different characteristics
+```{r}
+lpm <- lm(survive ~ child + female + class1 + class2, data = titanic)
+print("LPM")
+summary(lpm)
+lpm_margins <- margins(lpm, at = list(child = 1, female = 1, class1 = 0, class2 = 0))
+print(lpm_margins)
+
+#  using probit
+summary(pm)
+probit_prediction <- pnorm(-1.308744 + 0.6310225 + 1.483612)
+print(probit_prediction)
+
+probit_margins <- margins(pm, at = list(child = 1, female = 1, class1 = 0, class2 = 0))
+print(probit_margins)
+
+# using logit model
+logit_margins <- margins(lm, at = list(child = 1, female = 1, class1 = 0, class2 = 0))
+print(logit_margins)
+
+```
+
+

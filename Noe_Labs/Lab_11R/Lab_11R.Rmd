@@ -1,0 +1,183 @@
+---
+title: "Regression Analysis (Econ 0211), Lab11: Difference-in-Differences"
+author: "Noe Vyizigiro"
+date: "May, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+# *Important Packages/Libraries for this Lab:*
+1. tidyverse
+2. stargazer
+3. sandwich
+4. lmtest
+5. margins
+
+```{r, include=FALSE}
+library(tidyverse)
+
+if(!require("stargazer")) install.packages("stargazer")
+library(stargazer)
+
+if(!require("sandwich")) install.packages("sandwich")
+library(sandwich) # for robust SE
+
+if(!require("lmtest")) install.packages("lmtest")
+library(lmtest) # to run a t test of coefficients 
+
+if(!require("margins")) install.packages("margins")
+library(margins)
+
+rm(list = ls())
+
+```
+# 1. Read the Data
+```{r}
+aca<-read_csv("PUMS_USA_ACS_ACA.csv")
+aca
+```
+# Plotting
+```{r}
+filtered<-aca%>%
+  filter(under138==1)%>%
+  group_by(statecat, year)%>%
+  summarize(uninsured = sum(uninsured * perwt) / sum(perwt), .groups = 'drop') # weighted mean of uninsured
+filtered
+
+ggplot(filtered) +
+  geom_line( aes(x = year, y = uninsured, color = factor(statecat))) +
+  geom_vline(xintercept = 2013, linetype = "dashed") +
+  labs(title = "Uninsured Rates by State Category",
+       x = "Year",
+       y = "mean_Uninsured",
+       color = "State") 
+  
+```
+
+```{r}
+filtered2<-aca%>%
+  filter(under138==1)%>%
+  group_by(treated, year)%>%
+  summarize(uninsured = sum(uninsured * perwt) / sum(perwt), .groups = 'drop') # weighted average of uninsured
+filtered2
+
+ggplot(filtered2)+
+  geom_line(aes(x=year, y=uninsured, color = factor(treated)))+
+  geom_vline(xintercept = 2014, linetype = "dashed")+
+  scale_color_manual(values = c("0" = "blue", "1" = "red"),
+                     labels = c("1" = "KY and AR", "0" = "TX")) +
+  
+  labs(
+    title = "Uninsured rate by treatment status",
+    x ="Years",
+    y ="mean_uninsured",
+    color="Treatment Status"
+  )
+
+```
+#4. DD Regression
+```{r}
+dd_m1<-lm(uninsured~treated+postACA+treatedXpostACA, subset = (under138==1), data = aca, weights = perwt)
+rse1<-sqrt(diag(vcovHC(dd_m1, type="HC1"))) # robust SE
+coeftest(dd_m1, vcov=vcovHC(dd_m1, type="HC1")) # t test of coefficients while including their robust st.errors (allows to view coefficints and robust SE)
+
+cse1<-sqrt(diag(vcovCL(dd_m1, cluster = ~statefip))) # clustered Robust SE
+coeftest(dd_m1, vcov= vcovCL(dd_m1, cluster = ~statefip)) # t test of coefficients while including their robust st.errors (allows to view coefficints and robust SE)
+
+stargazer(dd_m1, dd_m1,
+          se=list(rse1, cse1),
+          type = "text",
+          out = "Fist_DD.txt",
+          title = "First_DD", 
+          column.labels = c("Robust", "Clustered"),
+          notes.append = TRUE
+)
+
+```
+
+# 6. Adding Controls
+```{r}
+dd_m2<-lm(uninsured~treated+postACA+treatedXpostACA+age+incwage+female+state_unemp, subset = (under138==1), data = aca, weights = perwt)
+cse2<-sqrt(diag(vcovCL(dd_m2, cluster = ~statefip))) # clustered SE
+
+stargazer(dd_m1, dd_m1,dd_m2,
+          se=list(rse1, cse1, cse2),
+          type = "text",
+          out = "Fist_DD.txt",
+          title = "First_DD", 
+          column.labels = c("Robust", "Clustered1", "Clustered2"),
+          notes.append = TRUE
+)
+
+```
+
+```{r}
+dd_m3<-lm(uninsured~treated*postACA+age+incwage+female+state_unemp, subset = (under138==1), data = aca, weights = perwt)
+summary(dd_m3)
+cse3<-sqrt(diag(vcovCL(dd_m3, cluster = ~statefip))) #clustered SE
+
+
+
+stargazer(dd_m1, dd_m1,dd_m2,dd_m3,
+          se=list(rse1, cse1, cse2, cse3),
+          type = "text",
+          out = "Fist_DD.txt",
+          title = "First_DD", 
+          column.labels = c("Robust", "Clustered1", "Clustered2","Clustered3"),
+          notes.append = TRUE
+)
+```
+# Plotting Margins
+```{r}
+
+margins_model <- margins(dd_m3, variables = "postACA", at = list(treated = unique(aca$treated)))
+margins_df <- as.data.frame(margins_model)
+
+
+
+ggplot(margins_df, aes(x = factor(postACA), y = fitted, color = factor(treated))) +
+  geom_point() +
+  geom_line(aes(group = treated)) +
+  labs(x = "PostACA", y = "Linear Prediction",
+       color = "Treated",
+       title = "Diff-in-Diff: ACA and Insurance Access for Low-income Adults",
+       subtitle = "US ACS 2011-2016") +
+  theme_minimal()
+```
+
+
+# 7. Bonus- A placebo test! 
+```{r}
+dd_m4<-lm(uninsured~treated*postACA+age+incwage+female+state_unemp, subset = (under138==0), data = aca, weights = perwt)
+margins_model2 <- margins(dd_m4, variables = "postACA", at = list(treated = unique(aca$treated)))
+margins_df2 <- as.data.frame(margins_model2)
+
+
+
+ggplot(margins_df2, aes(x = factor(postACA), y = fitted, color = factor(treated))) +
+  geom_point() +
+  geom_line(aes(group = treated)) +
+  labs(x = "PostACA", y = "Linear Prediction",
+       color = "Treated",
+       title = "Diff-in-Diff: ACA and Insurance Access for NOW low-income Adults",
+       subtitle = "US ACS 2011-2016") +
+  theme_minimal()
+
+filtered<-aca%>%
+  filter(under138==0)%>%
+  group_by(statecat, year)%>%
+  summarize(uninsured = sum(uninsured * perwt) / sum(perwt), .groups = 'drop') # weighted mean of uninsured
+filtered
+
+ggplot(filtered) +
+  geom_line( aes(x = year, y = uninsured, color = factor(statecat))) +
+  geom_vline(xintercept = 2014, linetype = "dashed") +
+  labs(title = "Uninsured Rates by State Category",
+       x = "Year",
+       y = "mean_Uninsured",
+       color = "State") 
+
+```
+

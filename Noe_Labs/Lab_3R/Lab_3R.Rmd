@@ -1,0 +1,188 @@
+---
+title: "Regression Analysis (Econ 0211), Lab3: Unit of measurement, functional form, and summy regressors"
+author: "Noe Vyizigiro"
+date: "March, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+#Note: Install all the necessary packages before loading the libraries if they are not installed already
+## *Important packages (libraries) for this lab*:
+
+1. tidyverse
+2. cowplot
+
+```{r}
+library(tidyverse)
+library(cowplot) # to put graphs together
+
+rm(list = ls()) #clear the environment
+```
+
+# 1. loading data
+```{r, include=FALSE}
+usa21_inc<-read_csv("IPUMS_USA_ 2021_ACS_LAB_3.csv") 
+
+#load function package "NV.R" that will come in handy when creating summary statistics; use nv_sum() function to get a table of summary statistics
+source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R")
+
+```
+```{r}
+nv_sum(usa21_inc, incwage, edyears, earnings, weight = FALSE)
+```
+
+# 2. Estimating regression  of earning on years
+```{r}
+Model1<-lm(earnings~edyears, data = usa21_inc, na.action = na.exclude) # omit N/A's to get predicted values  
+summary(Model1)
+coef(Model1) # pull out the coefficients
+```
+
+# 3. generating residuals and fitted values
+```{r}
+usa21_inc$yhat=fitted(Model1) # generate fitted values from Model1
+#this also works: #usa21_inc$yhat<-Model1$fitted.values 
+
+usa21_inc$uhat<- residuals(Model1) # generate residual values.
+
+cor(usa21_inc$edyears,usa21_inc$earnings) # correlation between two variables
+
+#view the predicted variables
+usa21_inc%>%
+  na.omit()%>%
+  dplyr::select(yhat, uhat) 
+
+```
+
+# creating graphs
+```{r}
+
+g1<-ggplot(usa21_inc,aes(x=edyears, y =earnings))+ 
+  geom_point()+
+  labs(
+    title = "Income wage on years of education",
+    x="years of education",
+    y = " income wage"
+  )
+
+# another quick way of plotting is using qplot function: qplot(usa21_inc$edyears,usa21_inc$INCWAGE) +geom_smooth(method = lm, se=FALSE)
+g2<-ggplot(usa21_inc,aes(x=edyears, y =earnings))+ # x and y have to be within the ggplot function for the fitted line to work
+  geom_point()+
+  geom_smooth(method = "lm", se=FALSE)+
+  labs(
+    title = "Income wage on years of education",
+    x="years of education",
+    y = " income wage"
+  )
+ 
+# plot the residual on fitted values
+# the line of best fit is horizontal: there is is not a pattern to this data. So there is a linear relationship.
+g3<-ggplot(usa21_inc, aes(x=yhat, y = uhat))+
+  geom_point()+
+  geom_smooth(method = "lm", se=FALSE)+
+  labs(
+    title = "Residual on fitted values",
+    x="fitted_values(yhat)",
+    y="residuals(uhat)"
+  )
+plot_grid(g1, g2, g3)
+```
+
+# 4. Estimating a regression model of earnings on months of schooling
+```{r}
+# creating a new variable month
+usa21_inc<-usa21_inc%>%
+  mutate(edmonths = edyears*10) # assuming each year has 10 months of schooling
+
+# regress earning on months of education
+Model2<-lm(earnings~edmonths, data = usa21_inc, na.action = na.exclude)
+summary(Model2)
+
+```
+
+# 5. Estimating a regression model of earnings(in cents) on years of education
+```{r}
+#create a new variable earn_cents
+usa21_inc<-usa21_inc%>%
+  mutate(earn_cents=earnings*100)
+
+Model3<-lm(earn_cents~edyears, data=usa21_inc)
+summary(Model3)
+```
+
+# 6. multiplying by 5
+```{r}
+usa21_inc<-usa21_inc%>%
+  mutate(earn_5 = earnings*5,
+         ed_5 =edyears*5)
+Model4<-lm(earn_5~ed_5, data = usa21_inc)
+summary(Model4)
+```
+
+# 7. data transformation using log
+```{r}
+usa21_inc<-usa21_inc%>%
+  mutate(ln_earnings=log(earnings))
+
+```
+# 8. Estimating a fitted model of log of earnings on years of education.
+```{r}
+Model5<-lm(ln_earnings~edyears, data = usa21_inc)
+summary(Model5)
+```
+
+# 9. Dummy variable as explainatory variable
+```{r}
+# creating a dummy variable for being female and summarize earnings:
+usa21_inc%>%
+  count(sex)
+
+usa21_inc<-usa21_inc%>%
+  mutate(female =ifelse(sex=="female", 1,0))
+usa21_inc%>%
+  summarise(mean_female=mean(female))
+
+# summarizing using nv_sum()
+female_usa21_inc<-usa21_inc%>%
+ group_by(female)
+nv_sum(female_usa21_inc, earnings, weight = FALSE)
+
+"
+#This is the regular summary without using nv_sum function
+usa21_inc%>%
+  group_by(female)%>%
+  summarise(mean_wage =mean(earnings),
+            total=n())
+"
+
+# Regress earnings on the female
+Model6<-lm(earnings~female, data = usa21_inc)
+summary(Model6)
+```
+
+
+```{r}
+# creating a dummy variable male
+usa21_inc<-usa21_inc%>%
+  mutate(male =ifelse(sex =="male",1, 0))
+
+#summarize earnings
+male_usa21_inc<-usa21_inc%>%
+  group_by(male)
+nv_sum(male_usa21_inc, earnings, weight = FALSE)
+  
+
+# Regress earnings on the male
+Model7<-lm(earnings~male, data = usa21_inc)
+summary(Model7)
+
+# regress ln_earnings on female
+Model8<-lm(ln_earnings~female, data = usa21_inc)
+summary(Model8)
+
+```
+
+
+

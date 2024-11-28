@@ -1,0 +1,430 @@
+---
+title: "Regression Analysis (Econ 0211), Lab6 v2: Hypothesis Testing and Motivating Nonlinear Regression"
+author: "Noe Vyizigiro"
+date: "April, 2024"
+output: html_notebook
+---
+
+```{r, include=FALSE}
+rm(list = ls())
+
+library(tidyverse)
+if(!require("ipumsr")) install.packages("ipumsr")
+library(ipumsr)
+
+if(!require("stargazer")) install.packages("stargazer")
+library(stargazer)
+
+library(robustbase) #robust library to use for robust regression
+library(car) # allow different model tests
+
+if(!require("sandwich")) install.packages("sandwich") # for robust regression
+library(sandwich)
+if(!require("lmtest")) install.packages("lmtest")
+library(lmtest)
+
+if (!require("survey")) install.packages("survey")
+library(survey)
+if (!require("MASS")) install.packages("MASS")
+library(MASS)
+
+```
+
+# comment:
+There is a little difference between this data set and the one provided in stata. For example, leisure values are a little different, which translate in a different mean. Weights values are also different.
+```{r}
+source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R")
+```
+
+#read data
+```{r, include=FALSE}
+ddi<-read_ipums_ddi("atus_00031.xml")
+atus<-read_ipums_micro(ddi)
+
+ATUS<-read.csv("IPUMS_ATUS_2019.csv")
+
+```
+
+```{r}
+#save(atus, file = "atus.csv")
+
+ipums_val_labels(atus$KIDUND18)
+
+columns <-c( "MARST", "SEX")
+atus[, columns] <- lapply(columns, function(x) as_factor(atus[[x]]))
+columns <-c("AGE", "EARNWEEK_CPS8", "NCHLT5")
+atus[, columns] <- lapply(columns, function(x) as.numeric(atus[[x]]))
+
+atus19<-atus%>%
+  filter(YEAR==2019)
+```
+# 2. Generating new Variables
+```{r}
+atus19<-atus19%>%
+  mutate(LTHS =ifelse(EDUC<20, 1,0),
+         HS =ifelse((EDUC>=20 & EDUC<=21),1,0),
+         SC =ifelse((EDUC>=30 & EDUC<=32), 1,0),
+         BA =ifelse(EDUC==40, 1, 0),
+         GRAD =ifelse((EDUC>40 & EDUC<=43), 1,0),
+         employed =ifelse(EMPSTAT==1, 1, 0),
+         male =ifelse(SEX=="Male", 1,0),
+         child =ifelse(KIDUND18 ==1, 1, 0))
+
+#atus19
+```
+
+# summarize the 10 variables
+```{r}
+# Selecting the variables of interest
+selected_vars <-dplyr::select(atus19,LTHS, HS,SC, BA, GRAD, employed, male,child, Leisure_211, AGE)
+
+# Calculating summary statistics for the selected variables
+summary_table <- sapply(selected_vars, function(x) {
+  c(
+    Obs = sum(!is.na(x)),
+    Mean = mean(x, na.rm = TRUE),
+    Median = median(x, na.rm = TRUE),
+    `Std. dev.` =sd(x, na.rm = TRUE),
+    Min = min(x, na.rm = TRUE),
+    Max = max(x, na.rm = TRUE)
+  )
+})
+
+# Print the summary table
+summary_df <- as.data.frame(t(summary_table))
+print(summary_df)
+
+# or you can get the same results in one line of code by using the nv_sum() function.
+nv_sum(atus19, LTHS, HS,SC, BA, GRAD, employed, male,child, Leisure_211, AGE)
+```
+
+# Weighted average
+```{r}
+# Create a survey design object, from survey package
+sv_obj <- svydesign(id = ~1, weights = ~WT06, data = atus19) # id: formula specifying cluster id; ~1 indicate that there is no cluster; weights: formula specifying the sampling weights
+
+# Function to calculate weighted mean and standard error
+summary_stats <-function(x,y) { # supply function iterate through the selected variables x while using the weights in the sv_object (y)
+  c(
+    obs =sum(!is.na(x)),
+    mean=svymean(x,y, na.rm=TRUE),#calculate the weighted mean
+    Std.dev = sqrt(svyvar(x,y, na.rm = TRUE)),# calculate the weighted SD
+    min = min(x, na.rm = TRUE),
+    max =max(x, na.rm = TRUE)
+   # quant=svyquantile(x,y, 0.50, na.rm=TRUE)
+  )
+}
+sum_table<-sapply(selected_vars, summary_stats, sv_obj) # use the sapply function here to the whole created function to create a vector-type data
+sum_table
+# Convert to a data frame for better presentation
+results_df <- as.data.frame(t(sum_table))
+# Print the results
+print(results_df)
+
+```
+
+# 3 Estimating Regressions
+```{r, include=TRUE}
+m1<-lm(Leisure_211~HS+ SC+ BA +GRAD, data = atus19)
+#summary(m1)
+
+m2<-lm(Leisure_211~HS+SC+ BA+ GRAD, data =atus19, weights = WT06) # non robust regression
+#summary(m2)
+
+#robust regression
+m3<-lm(Leisure_211~HS+SC+ BA+ GRAD, data =atus19, weights = WT06) 
+
+#rob<-coeftest(m3, vcov = vcovHC(m3, "HC1"))    # robust; HC1 (Stata default)
+rob_se3<-sqrt(diag(vcovHC(m3,"HC1"))) #calculate robust standard error
+#rob_se3
+
+stargazer( m1,m2,m3,
+          se =list(NULL, NULL, rob_se3),
+          type = "text",
+          title = "Table 1",
+          out = "table1.text",
+          column.labels = c("Regular", "Weighted", "Robust SE 1"),
+          notes = "Significance level"
+          
+          )
+        
+```
+
+# 4 Re-estimating the regressions using robust
+
+```{r}
+m1<-lm(Leisure_211~HS + SC + BA + GRAD, data =atus19, weights = WT06)
+r_se1<-sqrt(diag(vcovHC(m1,"HC1")))
+
+m2<-lm(Leisure_211~HS + SC + BA + GRAD + employed, data =atus19, weights = WT06)
+r_se2<-sqrt(diag(vcovHC(m2,"HC1")))
+
+m3<-lm(Leisure_211~HS + SC + BA + GRAD + employed + male, data =atus19, weights = WT06)
+r_se3<-sqrt(diag(vcovHC(m3,"HC1")))
+
+m4<-lm(Leisure_211~HS + SC + BA + GRAD + employed + male + child, data =atus19, weights = WT06)
+r_se4<-sqrt(diag(vcovHC(m4,"HC1")))
+
+m5<-lm(Leisure_211~HS + SC + BA + GRAD + employed + male + child + AGE, data =atus19, weights = WT06)
+r_se5<-sqrt(diag(vcovHC(m5,"HC1")))
+
+stargazer(m1, m2, m3, m4,m5,
+          se=list(r_se1, r_se2, r_se3, r_se4, r_se5),
+          type = "html",
+          title = "Table 2: Weighted Regression with Robust Standard Error.",
+          out="table2.html",
+          notes.append = TRUE)
+```
+#functions
+
+```{r}
+Reg_moded<-function(model_types, base_formula, ad_var,control_var, data, weights = NULL){
+  # initialize the list to store model results
+models<-list()
+sum<-list()
+#create the base formula
+base_formula_ob<-as.formula(base_formula)
+# iterate over each additional variable
+for (i in seq_along(ad_var)){
+  formula<-as.formula(paste(deparse(base_formula_ob),"+", ad_var[i]))
+  
+  # iterate over each model type
+  for(model_type in model_types){
+    model<-switch (model_type,
+                 lm =lm(formula, data=data, weights = weights),
+                 lmrob=lmrob(formula, data = data, weights = weights),
+                 stop("unsupported model"))
+  
+
+  
+  model_sum<-summary(model)
+  coeff<-coef(model)
+  
+  models[[paste(model_type, ad_var[i], sep = "_")]] <- model
+      sum[[paste(model_type, ad_var[i], sep = "_")]] <- list(
+        formula = formula,
+        coefficients = coeff
+      )
+}
+}
+  "
+  models[[i]]<-model
+  sum[[i]]<-list(
+    formula = formula,
+    coefficients=coeff
+   #standard_errors = standard_errors
+  )
+  "
+  # Print the results
+   # cat("Model", i, ":\n")
+  #  cat("Formula:", deparse(formula), "\n")
+  #  cat("Coefficients:\n")
+   # print(model_sum)
+  #  cat("\n")
+   
+  # fit model with control variables
+  for(i in seq_along(control_var)){
+    formula<-as.formula(paste(deparse(base_formula_ob),"+", control_var[i]))
+    
+    #iterate over each model type
+    for(model_type in model_types){
+    model<-switch (model_type,
+                 lm =lm(formula, data=data, weights = weights),
+                 lmrob=lmrob(formula, data = data, weights = weights),
+                 stop("unsupported model"))
+    
+      model_sum <- summary(model)
+      coeff <- coef(model)
+      
+      models[[paste(model_type, control_var[i], sep = "_")]] <- model
+      sum[[paste(model_type, control_var[i], sep = "_")]] <- list(
+        formula = formula,
+        coefficients = coeff
+      )
+  }
+  }
+   stargazer(models,
+          #se =list(NULL, NULL, rob_se3),
+          type = "text",
+          title = "Table 1",
+          out = "table1.txt",
+          #column.labels = c("Regular", "Weighted", "Robust SE 1"),
+          notes = "Significance level"
+          
+          )  
+  
+
+  return(list(models = models, summaries = sum))
+}
+
+
+base_formula<-"Leisure_211~HS + SC"
+ad_var<-c("employed")
+control_var<-c("male","child")
+model_types<-c("lm", "lmrob")
+
+results<-Reg_moded(model_types,base_formula,ad_var, control_var, atus19, atus19$WT06)
+
+
+```
+#5
+
+```{r}
+#b
+m1<-lm(Leisure_211~ HS + SC + BA + GRAD + employed + AGE + male + child, data = atus19, weights = WT06)
+r_seM1<-sqrt(diag(vcovHC.default(m1, "HC1")))
+summary(m1)
+r_seM1
+
+t1<-linearHypothesis(m1, "BA =GRAD")
+print(t1)
+#c
+t2<-linearHypothesis(m1, c("HS", "SC", "BA", "GRAD"))
+print(t2)
+
+```
+#6
+```{r}
+#a
+linearHypothesis(m1, c("child =0", "employed=0"))
+linearHypothesis(m1, "child-employed=0") # or linearHypothesis(m1, "child=employed =0)
+linearHypothesis(m1, "2*child =employed")
+
+#b
+linearHypothesis(m1, c("HS", "SC", "BA", "GRAD", "employed", "AGE", "male", "child "))
+```
+
+#7 Age and leisure
+```{r}
+#c
+ggplot(atus19, aes(AGE, Leisure_211))+
+  geom_point()+
+  labs(
+    title = "scatter plot of age and Leisure"
+  )
+#Scatter plot is not helpful here, we can try something else
+sv_ob <- svydesign(id = ~1, weights = ~WT06, data = atus19) 
+
+ sum<-atus19%>%
+   group_by(AGE)%>%
+   summarise(mean_leisure = weighted.mean(Leisure_211, WT06),
+             n=n())
+ #sum
+ 
+ #generate a variable that is the average leisure by age
+atus19 <-atus19%>%
+   group_by(AGE)%>%
+   mutate(leisure_byAge = mean(Leisure_211))
+  
+ ggplot(atus19, aes(AGE, leisure_byAge))+
+   geom_line()+
+   labs(
+     title = "Leisure by age and Age"
+   )
+
+ # regress leisure on age
+ m1<-lm(Leisure_211~AGE, data = atus19, weights = WT06)
+ summary(m1)
+ #robust
+ rm1<-coeftest(m1,vcov=vcovHC(m1,"HC1")) #robust coefficient and se
+ se_m1<-sqrt(diag(vcovHC(m1, "HC1")))
+
+ 
+ #atus19$pred_leisure<-predict(m1)
+ atus19$fitted_values<-fitted(m1)
+ 
+ggplot(atus19, aes(AGE, leisure_byAge))+
+  geom_line(aes(color ="Leisure_byAge"))+
+  geom_line(aes(y= fitted_values, color ="fitted_values"))+
+   labs(
+     title = "Predicted values"
+   )
+```
+
+# The following steps are ones we will explore in class next week ......
+```{r}
+#d
+atus19<-atus19%>%
+  mutate(Age2 =AGE^2)
+
+for (i in 2:5){
+  new_val_name <- paste0("Age", i)
+  atus19[[new_val_name]]<-atus19$AGE^i
+  
+}
+#atus19%>%
+ # dplyr::select(AGE, Age2)
+```
+# Run Regressions 
+
+```{r, include=FALSE}
+m1<-lm(Leisure_211~ AGE, weights = WT06, data = atus19)
+atus19$pred_yht1<-predict(m1)
+
+m1se<-sqrt(diag(vcovHC.default(m1, "HC1")))
+
+m2<-lm(Leisure_211~ AGE+ Age2, weights = WT06, data = atus19)
+atus19$pred_yht2<-predict(m2)
+
+m2se<-sqrt(diag(vcovHC.default(m2, "HC1")))
+
+m3<-lm(Leisure_211~ AGE + Age2 + Age3, weights = WT06, data = atus19)
+atus19$pred_yht3<-predict(m3)
+
+m3se<-sqrt(diag(vcovHC.default(m3, "HC1")))
+
+m4<-lm(Leisure_211~ AGE + Age2 + Age3 + Age4, weights = WT06, data = atus19)
+atus19$pred_yht4<-predict(m4)
+
+m4se<-sqrt(diag(vcovHC.default(m4,"HC1")))
+
+stargazer(m1, m2, m3, m4,
+          se =list(m1se, m2se, m3se, m4se),
+          type = "html",
+          title = "Table 3.",
+          out="table3.html",
+          notes.append = TRUE)
+
+```
+
+#plot
+```{r}
+ggplot(atus19, aes(AGE, leisure_byAge, color = "leisure_byAge"))+
+  geom_line()+
+  geom_line(aes(y =pred_yht1, color ="pred_yht1"))+
+   labs(
+     title = "Predicted values"
+   )
+
+
+ggplot(atus19, aes(AGE, leisure_byAge, color = "leisure_byAge"))+
+  geom_line()+
+  geom_line(aes(y =pred_yht1, color ="pred_yht1"))+
+  geom_line(aes(y =pred_yht2, color ="pred_yht2"))+
+  geom_line(aes(y =pred_yht3, color ="pred_yht3"))+
+  geom_line(aes(y =pred_yht4, color ="pred_yht4"))+
+   labs(
+     title = "Predicted values"
+   )
+
+```
+
+```{r}
+ggplot(atus19, aes(AGE, leisure_byAge, linetype = "leisure_byAge", color="leisure_byAge"))+
+  geom_line()+
+  geom_line(aes(y =pred_yht1, linetype ="linear",color = "linear"))+
+  geom_line(aes(y =pred_yht2,linetype ="quadratic",color="quadratic"))+
+  geom_line(aes(y =pred_yht3, linetype ="cubic", color="cubic"))+
+  geom_line(aes(y =pred_yht4, linetype ="quartic",color="quartic"))+
+  scale_linetype_manual(values = c("linear"="dashed", "quadratic"="dotted", "cubic"="twodash", "quartic"="dotdash", "leisure_byAge"="solid"))+
+  scale_color_manual(values = c("linear"="blue", "quadratic"="green", "cubic"="purple", "quartic"="red", "leisure_byAge"="black"))+
+   labs(
+     title = "Predicted values",
+     linetype ="Model", # line type will merge with color type to created an annotated, colored legend based on linetype and color type
+     color ="Model",
+     y="Leisure by Age"
+   )+
+  theme_minimal()
+```
+
+

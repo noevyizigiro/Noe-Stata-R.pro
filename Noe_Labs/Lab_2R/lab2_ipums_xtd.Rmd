@@ -1,0 +1,196 @@
+---
+title: "Regression Analysis (Econ 0211), Lab2 :Getting Ready for Regression"
+author: "Noe Vyizigiro"
+date: "March, 2024"
+output: html_notebook
+---
+
+```{r setup,}
+library(ipumsr)
+library(tidyverse)
+library(stringr)
+library(sf) #maps
+library(purrr)
+library(haven)
+install.packages("RStudio")
+
+rm(list=ls())
+```
+
+This version uses data downloaded directly from IPUMS
+## Load the data
+```{r}
+ddi <-read_ipums_ddi("usa_00001.xml")
+usa_21d<-read_ipums_micro(ddi) #point to the code book to read the file: data file is dump, but the code book is smart,it has everything we need.
+#as_factor(usa_bdi) #to see the labels only for the variables that are labled
+#zap_labels(usa_bdi) # to see only the numeric values associated with the labels 
+
+#load nv.R function package
+source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R") 
+
+```
+```{r}
+names(ddi) # the name element of the ddi objects; it has a file name, which is the data file that we have to download and save in the same location with ddi book code
+ddi$var_info
+```
+```{r}
+names(usa_21d) # name variables
+ipums_var_label(ddi, EDUC) # view the variable's label
+ipums_var_desc(ddi, EDUC) # view longer description of a variable
+ipums_view(ddi)
+usa_21d
+
+```
+
+```{r}
+ipums_val_labels(usa_21d$EDUC) # look at a variable's values and their labels
+```
+
+## making some variables factors
+```{r}
+columns <-c("EDUC", "EDUCD", "SEX")
+usa_21d[, columns] <- lapply(columns, function(x) as_factor(usa_21d[[x]]))
+
+columns0 <-c("AGE", "INCWAGE", "INCEARN")
+usa_21d[, columns0] <- lapply(columns0, function(x) as.numeric(usa_21d[[x]]))
+
+usa_21d
+
+```
+
+
+## 4. Looking at the earning variables
+```{r}
+min(usa_21d$INCWAGE, na.rm = TRUE)
+max(usa_21d$INCWAGE, na.rm = TRUE)
+mean(usa_21d$INCWAGE, na.rm = TRUE)
+median(usa_21d$INCWAGE, na.rm = TRUE)
+sd(usa_21d$INCWAGE, na.rm = TRUE)
+var(usa_21d$INCWAGE, na.rm = TRUE)
+
+#or
+#summarize INCWAGE AND INCEARN
+nv_sum(usa_21d, INCWAGE, INCEARN, weight = FALSE) # using nv_sum() function
+
+
+```
+
+### replace 0s to nas and drop na to avoid missing values
+```{r}
+usa_21d$INCWAGE[usa_21d$INCWAGE ==0]<-NA # replacing zeros with NAs
+usa_21d$INCWAGE[usa_21d$INCWAGE ==999999]<-NA
+
+
+#create a new dataset without missing values
+usa_21d0<-usa_21d%>%
+  na.omit()
+summary(usa_21d$INCWAGE)
+```
+
+```{r}
+table(usa_21d0$EDUC)
+table(usa_21d0$EDUCD)
+
+```
+
+```{r}
+
+usa_21d1<-usa_21d0%>%
+  mutate(edyears = as.numeric(EDUCD)) #create a new variable to observe numerical labels of educD
+
+#usa_21d1
+```
+
+```{r}
+usa_21d1%>%
+  group_by(EDUCD, edyears)%>%
+  summarise(mean = mean(INCWAGE))
+
+
+
+```
+
+## 6.generating a new variables "edyears" with numbers of years of education
+```{r}
+usa_21d2<-usa_21d1%>%
+  mutate(edyears =recode(edyears, '2' ='0', '3'='0', '5'='0', '6' ='0', '8'='1', '9'='2', '10'='3', '11'='4', '14'='5', '15'='6', '17'='7', '18' ='8', '19'='9', '20'='10', '21'='11', '23' ='11', '25'='12','26'='12', '27'='13', '29'='13', '31'='14', '36'='16', '41' ='18', '42' ='18', '43'='20' ),
+        edyears = as.numeric(edyears) )
+```
+### check if the matching was successful
+```{r}
+usa_21d2%>%
+  group_by(EDUCD, edyears)%>%
+  summarise(mean= mean(INCWAGE))
+```
+
+## 7. Grouping by edyears to observe income wage across years of education.
+```{r}
+# grouping by educ to observe income wage across years of education.
+usa_21d2%>%
+  group_by(edyears)%>%
+  summarise(mean = mean(INCWAGE))
+
+# creating and using an dataset with age between 25 and 60
+usa_21d3<-usa_21d2%>%
+  filter(AGE>=25 & AGE<=60)
+
+usa_21d3<-usa_21d3%>%
+  group_by(edyears)
+  #summarise(mean_wage =mean(INCWAGE))
+nv_sum(usa_21d3, INCWAGE, weight = FALSE)
+```
+
+## 8. Compare average earnings for college and non-college grads
+```{r}
+# create a dummy variable college equal to 1 if educ is >=16 and zero otherwise
+usa_21d3%>%
+  mutate(college = ifelse(edyears>=16,1,0))%>%
+  group_by(college)%>%
+  summarise(mean_wage = mean(INCWAGE))
+```
+
+## 9. Graph
+```{r}
+usa_21d3%>%
+  ggplot(aes(edyears, INCWAGE))+
+           geom_point()+
+  labs(
+    title = "Scatter Plot of Education vs. Earnings",
+    subtitle="2021 American Community Survey",
+    x="Years of education",y="wage($)"
+  )
+```
+
+```{r}
+usa_21d3%>%
+  filter(AGE>=25 & AGE<=60)%>%
+  ggplot(aes(edyears, INCWAGE))+
+           geom_point()+
+  geom_smooth(method=lm, se =FALSE)+
+  labs(
+    title = "Scatter Plot of Education vs. Earnings",
+    subtitle="2021 American Community Survey",
+    x="Years of education",y="wage($)"
+  )
+ 
+```
+### How to mine data from ipums compatible with r:
+Assuming one has already an ipums account:
+1. Go to ipums and select your sample and all the variables 
+2. Hit "extract dataset"
+3. hit " submit extract" dataset in ".dat-format
+4. When the dataset is ready, download the dat format on your laptop (it comes as a compressed dat.gz file)
+5. download the ddi file(the "code book") by double clicking on it and click on "save as.."
+6. save both files in the same directory
+7. read the ddi file in r : ddi<-read_ipums_ddi(data.xml)
+8. create a dataset to be used for your analysis using the ddi file loaded: data<-read_micro_ipums(ddi)
+9. then, you're good to go with your data cleaning and analysis.
+
+
+### Saving the cleaned data set
+```{r}
+write.csv(usa_21d3, file = "usa21_earnings.csv") # this is to save the cleaned data to the directory to be used later for lab 3
+#read.csv("new_data.csv")
+```
+
+

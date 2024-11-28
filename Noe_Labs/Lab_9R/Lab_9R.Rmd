@@ -1,0 +1,391 @@
+---
+title: "Regression Analysis (Econ 0211), Lab9: Working with Pannel Data"
+author: "Noe Vyizigiro"
+date: "May, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+# *Important packages/libraries for this lab:*
+
+1. tidyverse
+2. skimr
+3. psych
+4. sandwich
+5. plm
+6. stargazer
+7. broom
+8. car
+9.lmtest
+```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+#clear the environment
+rm(list = ls())
+
+library(tidyverse)
+
+if(!require("skimr")) install.packages("skimr")
+library(skimr)# quickly skim the dataset
+
+if(!require("psych")) install.packages("psych")
+library(psych) # comprehensive summary table
+
+if(!require("sandwich")) install.packages("sandwich")
+library(sandwich) # for robust SE
+
+if(!require("plm")) install.packages("plm")
+library(plm) # panel linear model
+
+if(!require("startgazer")) install.packages("stargazer")
+library(stargazer) 
+
+if(!require("broom")) install.packages("broom")
+library(broom)
+
+if(!require("car")) install.packages("car")
+library(car) # F-test and other model tests
+
+if(!require("lmtest")) install.packages("lmtest")
+library(lmtest)
+
+
+
+```
+
+# Load Data
+```{r}
+inc_dem<-read_csv("income_democracy.csv")
+source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R") #load NV.R to access nv_sum() function for quick summary statistic table
+```
+
+# 2. Investigate the Data
+```{r}
+skim(inc_dem) # help to quickly skim the dataset
+
+describe(inc_dem) # provide an comprehensive summary table
+
+nv_sum(inc_dem, dem_ind, log_gdppc, log_pop, weight = FALSE)
+
+```
+# 3. Investigating dem_ind variable
+```{r}
+sum_dem_ind<-inc_dem%>%
+  group_by(country)
+nv_sum(sum_dem_ind, dem_ind, weight = FALSE)
+
+```
+
+# 4. Generate variables for averages by country 
+```{r}
+# sorting/arranging the data
+inc_dem<-inc_dem%>%
+  arrange(year,country)%>%
+  arrange(country, year)%>%
+  mutate(dem_average = mean(dem_ind, na.rm = TRUE))
+
+  
+# generate a variable that is the mean democracy index for each country 
+inc_dem<-inc_dem%>%
+  group_by(country)%>%
+  mutate(dem_c_avg =mean(dem_ind, na.rm = TRUE))
+
+#generate a variable that is the mean gdppc for each country 
+inc_dem<-inc_dem%>%
+  group_by(country)%>%
+  mutate(gdp_c_avg = mean(log_gdppc, na.rm = TRUE))
+ 
+# quick look at the variables created
+inc_dem%>%
+  dplyr::select(country, dem_average, dem_c_avg,gdp_c_avg)
+
+```
+
+# 5. Graph: Relatinship between the natural log of GDP per capita and the democracy index.
+```{r}
+
+ggplot(inc_dem, aes(x=gdp_c_avg,y=dem_c_avg))+
+  geom_point()+
+  geom_smooth(method = "lm", se=TRUE, color="red")+
+  labs(
+    title = "Democracy and Income",
+    subtitle = "average 1960-2000",
+    x ="Log GDP per capita",
+    y = "Democracy Index"
+  )
+filtered_graph<-inc_dem%>%
+  filter(year==1990)%>%
+  ggplot(aes(x=log_gdppc,y=dem_ind))+
+    geom_point()+
+    geom_smooth(method = "lm", se=TRUE, color="blue")+
+    labs(
+      title = "Democracy and Income",
+      subtitle = "1990",
+      x ="Log GDP per capita",
+      y = "Democracy Index"
+    )
+filtered_graph
+```
+
+# 6. Estimating Simple Robust Regression Model
+```{r}
+
+rob <- lm(dem_ind ~ log_gdppc, data = inc_dem)
+# Summarize the model
+summary(rob)
+rob_se<-sqrt(diag(vcovHC(rob,type="HC1"))) #calculate robust standard error
+rob_se
+
+```
+
+# 7. Estimating Clustered Regression Model (to avoid autocorrelation)
+```{r}
+clust_m<-lm(dem_ind~log_gdppc, data = inc_dem)
+
+clu_se<-sqrt(diag(vcovCL(clust_m, cluster = ~country)))
+
+
+stargazer(rob,clust_m,
+          se=list(rob_se, clu_se),
+          type = "text",
+          out = "robust.html",
+          title = "Robust Model",
+          notes.append = TRUE)
+
+```
+
+# 9. Let's tell R we have panel data!
+```{r}
+pinc_dem<-plm::pdata.frame(inc_dem,index= c("country", "year"), drop.index =FALSE, row.names = FALSE) #tell R that we have a panel data; year becomes a factor
+#pinc_dem
+
+# nest the variables (country and country id with the numerical series created)
+bpinc_dem<-pinc_dem%>%
+  complete(nesting(country))
+bpinc_dem
+
+
+
+```
+
+```{r}
+#Here is some nifty code to make new variables that are the difference between dem_ind and log_gdppc between 1970 and 1995
+#create lagged values
+ bpinc_dem<-bpinc_dem %>%
+  dplyr:: mutate(
+    dem_lag_7095 = ifelse(year==1995,lag(pinc_dem$dem_ind, 25),NA),
+    
+    gdp_lag_7095 =ifelse(year==1995, lag(pinc_dem$log_gdppc, 25),NA)
+  )
+  
+
+# Create differences
+bpinc_dem<-bpinc_dem %>%
+ dplyr:: mutate(
+    dem_diff_7095 = (dem_ind - dem_lag_7095),
+    gdp_diff_7095 = ( log_gdppc - gdp_lag_7095)
+  ) 
+```
+
+```{r}
+# view variables created
+selected_data <- bpinc_dem %>%
+  dplyr::select(country, year, dem_ind,dem_lag_7095, log_gdppc, gdp_lag_7095 ) #call select directly from dplyr package to avoid conflict with other packages
+
+# Print the selected data to check the result
+print(selected_data)
+```
+
+# Plot
+```{r}
+pinc_dem_graph <- bpinc_dem %>%
+  filter(!is.na(gdp_diff_7095) & !is.na(dem_diff_7095))
+
+#str(pinc_dem_graph)  #check structure of the entire dataset
+
+
+ggplot(pinc_dem_graph, aes(x = gdp_diff_7095, y = dem_diff_7095)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)+
+   labs(
+    title = "Changes in Democracy and Income",
+    subtitle = "1970 to 1995",
+    x ="Changes Log GDP per capita",
+    y = "Changes in Democracy Index"
+  )
+
+#pinc_dem_graph
+
+```
+# using fitted values
+```{r}
+# We can do the same graph using the fitted value
+plm_model<-lm(dem_diff_7095~gdp_diff_7095, data = pinc_dem_graph)
+summary(plm_model)
+
+pinc_dem_graph$yhat<-fitted(plm_model)
+
+ggplot(pinc_dem_graph, aes(x=gdp_diff_7095, y=dem_diff_7095))+
+  geom_point()+
+  geom_line(aes(y=yhat), color="red")+ # add a smoothed conditional mean
+  #geom_smooth(method = "lm", se=FALSE, color="blue")+
+  labs(
+    title = "Changes in Democracy and Income",
+    subtitle = "1970 to 1995",
+    x ="Changes Log GDP per capita",
+    y = "Changes in Democracy Index"
+  )
+
+```
+
+# 10. Start Estimating fixed Effect Regression
+```{r}
+# get rid of na's
+bpinc_dem<-bpinc_dem%>%
+  filter(!log_gdppc=="NA")
+
+#pinc_dem
+
+#creating country_id dummies
+bpinc_dem <- cbind(bpinc_dem, model.matrix(~ country- 1, data = bpinc_dem)) #creating new country dummies starting or rearranging the country series
+#bpinc_dem
+
+```
+
+```{r}
+
+# estimating regressions
+dum<-lm(dem_ind~log_gdppc + country-1, data = bpinc_dem)
+#summary(dum)
+cof<-coef(dum)["log_gdppc"]
+#cof
+du_se<-sqrt(diag(vcovCL(dum, cluster = ~country)))
+#du_se
+
+fe<-plm(dem_ind~log_gdppc, model="within",index = "country", data = bpinc_dem)
+#summary(fe)
+fe_se<-sqrt(diag(vcovSCC(fe, cluster = "group", type = "HC1")))
+#fe_se
+coeftest(fe, vcov = vcovSCC(fe,cluster = "group", type = "HC1")) #extract clustered robust coefficients.
+
+stargazer(rob,clust_m, dum,fe,
+          se=list(rob_se, clu_se, du_se, fe_se),
+          omit = "^country",
+          type = "text",
+          out = "robust.html",
+          title = "Robust Model",
+          notes.append = TRUE)
+
+coef
+```
+
+# 11. Including time fix effects
+
+Note:
+*For cross-sectional data(many subject at a single period of time) with heteroskedasticity, use vcovHC: Corrects for heteroskedasticity*
+*For panel data with clustering (e.g., individuals observed over time), use vcovCL: Corrects for within-cluster correlation*
+*For panel data with cross-sectional and serial correlation, use vcovSCC: Corrects for both heteroskedasticity and serial correlation*
+*vcovCL: Mostly for clustering with linear model (lm)*
+*vcovSCC: clustering with panel linear model (plm)*
+```{r}
+# creating time dummies
+dpinc_dem<-cbind(bpinc_dem, model.matrix(~year-1, data = bpinc_dem))
+#dpinc_dem
+
+yfe<-plm(dem_ind~log_gdppc+ year-1, index="country", data = bpinc_dem) # fixed effect regression with time dummies; index: country
+#summary(yfe)
+
+yfey<-plm(dem_ind~log_gdppc+ year-1, index="year", data = bpinc_dem) # fixed effect regression with time dummies; index: year
+summary(yfey)
+
+yfe_se<-sqrt(diag(vcovSCC(yfe, type="HC1",cluster = "group")))
+#yfe_se
+
+stargazer(rob,clust_m, dum,fe,yfe,
+          se=list(rob_se, clu_se, du_se,fe_se, yfe_se),
+          omit = "^country",
+          type = "text",
+          out = "robust.html",
+          title = "Robust Model",
+          notes.append = TRUE)
+# f-test
+
+test<-linearHypothesis(yfe, c("year1960","year1965","year1970","year1975","year1980","year1985" ,"year1990","year1995"))
+test
+
+```
+
+# 12. Control for more variables
+```{r}
+yfe2<-plm(dem_ind~log_gdppc+ log_pop+educ+age_2+age_3+age_4+age_5+year-1, index="country", data = bpinc_dem)
+#summary(yfe2)
+
+yfe_se2<-sqrt(diag(vcovSCC(yfe2, type="HC1",cluster = "group")))
+#yfe_se
+
+stargazer(rob,clust_m, dum,fe,yfe,yfe2,
+          se=list(rob_se, clu_se, du_se,fe_se, yfe_se, yfe_se2),
+          omit = "^country",
+          type = "text",
+          out = "robust.html",
+          title = "Robust Model",
+          column.labels = c("ro", "cl", "du","fe","yfe","y"),
+          notes.append = TRUE)
+
+test1<-linearHypothesis(yfe2, c("age_2","age_3","age_4","age_5"))
+test2<-linearHypothesis(yfe2, c("age_2","age_3","age_4","age_5","educ", "log_pop"))
+test1
+test2
+```
+
+# Bonus: Making a visualization of the results
+```{r}
+#creating a list of our models
+M_list<-list(rob,clust_m, dum,fe,yfe,yfe2)
+#extract coefficients and CI
+coef_extr<-lapply(M_list, function(model){
+  coefs<-tidy(model) #from the broom library
+  conf_int<-confint(model)
+  coefs<-cbind(coefs, conf_int) #combine coefficient and confidence intervals
+  coefs
+})
+"
+for(i in M_list){
+  coefs<-tidy(i) #from the broom library
+  conf_int<-confint(i)
+  coefs<-cbind(coefs, conf_int)
+}
+"
+#apply that to all the models using the function created
+#model_coef<-lapply(M_list, coef_extr)
+for (i in seq_along(coef_extr)){
+  coef_extr[[i]]$model<-paste("Model", i)
+}
+
+# combine the coefficients in a single dataframe
+coef_df<-bind_rows(coef_extr)
+#coef_df
+# get the coefficients of interest
+coef_df<-coef_df%>%
+  filter(term== "log_gdppc")
+
+#rename the columns for convenience
+colnames(coef_df) <- c("term", "estimate", "std.error", "statistic", "p.value", "conf.low", "conf.high", "model")
+
+models=c("basic", "cluster", "dummies", "fixed_effects", "time_fe", "fe_controls") #rename the models to match the colors
+
+ggplot(coef_df, aes(x=model, y =estimate, color=models))+
+  geom_point()+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=0.2)+
+  geom_hline(yintercept = 0,linetype ="dashed", color="red")+ # add a horizontal dashed line
+  labs(title = "Coefficients of log_gdppc Across Models",
+       x = "Coefficients on Log_gdppc",
+       y = "Coefficient Estimate",
+       color="Model") +
+   scale_color_manual(values = c("basic" = "blue", "cluster" = "green", "dummies" = "red", "fixed_effects"="yellow", "time_fe"="black", "fe_controls"="purple")) +
+  theme_minimal()
+```
+
+

@@ -1,0 +1,98 @@
+---
+title: "Regression Analysis (Econ 0211), Lab 5: Multiple Regression"
+author: "Noe Vyizigiro"
+date: "April, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+## *Important packages (libraries) for this lab*:
+1. tydiverse
+2. stargazer
+
+```{r, include=FALSE}
+library(tidyverse)
+
+if(!require("stargazer")) install.packages("stargazer")
+library(stargazer)
+
+
+rm(list = ls())
+```
+# Read data
+```{r}
+bws<-read_csv("Birthweight_Smoking.csv")
+bws
+source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R") #load NV.R to access nv_sum() function for quick summary statistic table
+```
+# 1. Summary
+```{r}
+#as.data.frame(summary(bws))
+summary(bws)
+
+
+```
+# 3. Regress birthweight on smoker
+```{r}
+m1<-lm(birthweight~smoker, data = bws)
+summary(m1)
+```
+# 4. correlation: Is there OVB due to other bahaviors
+```{r}
+
+cov(bws[, c("smoker", "alcohol")], use = "complete.obs")
+cor(bws[, c("smoker", "alcohol")], use = "complete.obs")
+
+```
+
+#5 Regress birthweight on smoker and alcohol
+```{r}
+m2<-lm(birthweight~smoker+alcohol, data = bws)
+summary(m2)
+```
+#6 Regress birthweight on smoker, alcohol, and npreveist
+```{r}
+m3<-lm(birthweight~smoker+alcohol+nprevist, data = bws)
+summary(m3)
+```
+#7 Predict
+```{r}
+bws$pred_birthwt<-predict(m3,data= m3$fitted.values)
+
+bws%>%
+  filter(smoker==1 & alcohol==0 & nprevist==8)%>%
+  summarise(Obs =n(),
+            mean = mean(pred_birthwt))
+```
+# sum tripre
+```{r}
+nv_sum(bws, tripre1,tripre2, tripre3,tripre0, weight = FALSE)
+
+```
+
+# 9. Let's including the dummy variables
+```{r}
+m4<-lm(birthweight~smoker+alcohol+tripre1+tripre2+tripre3+tripre0, data =bws) # there is a multicollinearity in this model, so we don't include it in the table
+summary(m4)
+
+m5<-lm(birthweight~smoker+alcohol+tripre2+tripre3+tripre0, data =bws)
+summary(m5)
+
+m6<-lm(birthweight~smoker+alcohol+tripre1+tripre3+tripre0, data =bws)
+summary(m6)
+```
+# Regression table
+```{r}
+stargazer( m1, m2, m3, m5,m6,
+          #type = "html",
+          type = "text",
+          title = "Table 1. Birthweight and characteristic of the mother",
+          out = "table1.txt",
+          notes = "Significance level"
+          )
+```
+
+
+

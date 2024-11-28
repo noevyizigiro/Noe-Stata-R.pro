@@ -1,0 +1,229 @@
+---
+title: "Regression Analysis (Econ 0211), Lab7: Interactions"
+author: "Noe Vyizigiro"
+date: "April, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+## *Important packages (libraries) for this lab*:
+1. tidyverse
+2. sandwich: Helpful in estimating robust regression models
+3. ggrepel
+
+```{r}
+library(tidyverse)
+if(!require("sandwich")) install.packages("sandwich") # for robust regression
+library(sandwich)
+if(!require("ggrepel")) install.packages("ggrepel") # for robust regression
+library(ggrepel)
+
+rm(list = ls())
+```
+
+#Read data
+```{r}
+inflation<-read_csv("FRED_inflation.csv")
+unemployment<-read_csv("FRED_unemployment.csv")
+```
+# 3. Merge the data and keep the dataset from 1960
+```{r}
+infl_unemp<-unemployment%>%
+  left_join(inflation, by="year")%>%
+  filter(year>=1960)
+```
+
+# 4. Graphing
+```{r}
+# line graph
+ggplot(infl_unemp, aes( year))+
+  geom_line(aes(y=inflation, color ="inflation"))+
+  geom_line(aes(y = unemployment, color ="unemployment"))+
+  scale_linetype_manual(values = c("inflation"="dash", "unemployment"="solid"))+
+  scale_x_continuous(breaks = seq(1960, 2020, by =10))+
+  labs(
+    title = "Evidence for  the Phillips Curve",
+    subtitle= "FRED: 1960-2022",
+    x = "Years", y="Rates",
+    color = "Legend"
+  )+
+  theme_minimal()
+# scatter plot
+ggplot(infl_unemp, aes(unemployment, inflation))+
+  geom_point()+
+  labs(
+    title = "Evidence for  the Phillipss Curve",
+    subtitle= "FRED: 1960-2022",
+    x = "Unemployment", y="Inflation",
+    color =""
+  )
+```
+
+# 5. Estimating phillips curve by regressing  inflation on unemployment
+```{r}
+phillips<-lm(inflation~unemployment, data = infl_unemp)
+p_se1<-sqrt(diag(vcovHC(phillips,"HC1"))) #robust se
+summary(phillips)
+
+infl_unemp$yhat<-predict(phillips)
+
+ggplot(infl_unemp, aes(unemployment, inflation))+
+  geom_point()+
+  geom_line(aes(y=yhat, color ="yhat"))+
+  labs(
+    title = "Evidence for  the Phillips Curve",
+    subtitle= "FRED: 1960-2022",
+    x = "Unemployment", y="Inflation",
+    color ="Legend "
+  )
+```
+
+# 6. Regraph 
+```{r}
+ggplot(infl_unemp, aes(unemployment, inflation))+
+  geom_point()+
+  ggplot2::geom_text(aes(label = year), size = 3, vjust = -0.5, hjust = -0.5) +
+  scale_color_viridis_d() +
+  labs(
+    title = "Evidence for  the Phillips curve",
+    subtitle= "FRED: 1960-2022",
+    x = "Unemployment", y="Inflation",
+    color ="Legend"
+    
+  )
+
+# to make results more clear
+# Create a new variable to identify the subsets
+infl_unemp$period <- with(infl_unemp,
+                          ifelse(year >= 1974 & year <= 1983, "1974-1983",
+                                  ifelse(year >= 2020, "2020+", 
+                                         "Others")))
+
+
+
+# Create the plot
+ggplot(infl_unemp, aes(x = unemployment, y = inflation, color = period, label = year)) +
+  geom_point() +
+  geom_text_repel(size = 3) +
+  scale_color_manual(values = c("1974-1983" = "red", "2020+" = "green", "Others" = "blue")) +
+  labs(
+    title = "Evidence for the Phillips Curve",
+    subtitle = "FRED data 1960-2021",
+    x = "Unemployment",
+    y = "Inflation",
+    color = "Legend"
+  ) 
+  
+
+```
+
+# 7. Investigate non-linearity
+```{r}
+#creating a dummy variable 
+infl_unemp<-infl_unemp%>%
+  mutate(oilyears =ifelse(year >= 1974 & year <= 1983, 1,0))
+
+# run a regression
+phillips2<-lm(inflation~unemployment+oilyears, data = infl_unemp)
+p_se2<-sqrt(diag(vcovHC(phillips2,"HC1"))) #robust se
+summary(phillips2)
+
+infl_unemp$yhat2<-predict(phillips2)
+# Create separate variables for oil and non-oil years
+infl_unemp <- infl_unemp %>%
+  mutate(
+    p_oil = ifelse(oilyears == 1, yhat2, 0),
+    p_non_oil = ifelse(oilyears == 0, yhat2, 0)
+  )
+
+# Create the plot
+ggplot(infl_unemp) +
+  geom_point(aes(x = unemployment, y = inflation), color = "black") +
+  geom_point(aes(x = unemployment, y = p_oil, color = "Oil Years"), linetype = "solid", group =1) +
+  geom_point(aes(x = unemployment, y = p_non_oil, color = "Non-Oil Years"), linetype = "dashed", group =1) +
+ scale_color_manual(values = c("Oil Years" = "red", "Non-Oil Years" = "blue")) +
+  labs(
+    title = "Scatter Plot with Predicted Lines for Oil and Non-Oil Years",
+    x = "Unemployment",
+    y = "Inflation",
+    color = "Legend"
+  ) 
+  #theme_minimal()
+```
+
+
+```{r}
+# plotting with conditions
+ggplot(infl_unemp, aes(x = unemployment, y = inflation, color = period, label = year))+
+  geom_point()+
+  geom_line(data = subset(infl_unemp, year >= 1974 & year <= 1983), aes(x=unemployment,y=p_oil, colour = period))+
+  geom_line(data= subset(infl_unemp, year<1974 | year>1983), aes(x=unemployment,y=p_non_oil, colour = period))+
+  geom_text_repel(size = 3) +
+  scale_color_manual(values = c("1974-1983" = "red", "2020+" = "blue", "Others" = "blue")) +
+  
+  
+  labs(
+    title = "Evidence for the Phillips curve",
+    subtitle = "FRED data: 1960=2021"
+  )
+  
+
+```
+
+# 8)Introduce an Interaction Term 
+
+```{r}
+## generate the interaction variable on your own
+infl_unemp<-infl_unemp%>%
+  mutate(oilyearsXunemployment =oilyears*unemployment)
+# run a regression
+phillips3<-lm(inflation~unemployment+oilyears+oilyearsXunemployment, data = infl_unemp)
+p_se3<-sqrt(diag(vcovHC(phillips3,"HC1"))) #robust se
+summary(phillips3)
+
+infl_unemp$yhat3 =predict(phillips3) # predict yhat3
+infl_unemp<-infl_unemp%>%
+  mutate(
+    p2_oil =ifelse(oilyears==1,yhat3,0),
+    p2_non_oil =ifelse(oilyears==0,yhat3,0)
+    )
+
+# create a graph
+interactions<-ggplot(infl_unemp) +
+  geom_point(aes(x = unemployment, y = inflation), color = "black") +
+  geom_point(aes(x = unemployment, y = p2_oil, color = "Oil Years")) +
+  geom_point(aes(x = unemployment, y = p2_non_oil, color = "Non-Oil Years")) +
+  scale_color_manual(values = c("Oil Years" = "red", "Non-Oil Years" = "blue")) +
+  labs(
+    title = "Scatter Plot with Predicted Lines for Oil and Non-Oil Years",
+    x = "Unemployment",
+    y = "Inflation",
+    color = "Legend"
+  ) 
+  #theme_minimal()
+print(interactions)
+```
+
+# 9) Let's see what the graph looks like now!
+```{r}
+fancy_scatter<-ggplot(infl_unemp, aes(x = unemployment, y = inflation, color = period, label = year))+
+  geom_point()+
+  geom_line(data = subset(infl_unemp, year >= 1974 & year <= 1983), aes(x=unemployment,y=p2_oil, colour = period))+
+  geom_line(data= subset(infl_unemp, year<1974 | year>1983), aes(x=unemployment,y=p2_non_oil, colour = period))+
+  geom_text_repel(size = 3) +
+  scale_color_manual(values = c("1974-1983" = "red", "2020+" = "blue", "Others" = "blue")) +
+  
+  
+  labs(
+    title = "Evidence for the Phillips Curve?",
+    subtitle = "FRED data: 1960=2021"
+  )
+print(fancy_scatter)
+ggsave(filename = "fancy_scatter.png", plot = fancy_scatter)
+  
+```
+
+
+

@@ -1,0 +1,285 @@
+---
+title: "Regression Analysis (Econ 0211), Lab1 : Introduction"
+author: "Noe Vyizigiro"
+date: "March, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+    
+---
+
+# *Important packages/libraries for this lab*:
+
+1. tidyverse
+2. foreign: used when reading data that is not in .CSV format
+3. readstata13 : used when reading data in dta format
+
+```{r}
+
+library(tidyverse) 
+if(!require("tufte")) install.packages("tufte")
+#library(tufte)
+
+if(!require("foreign")) install.packages("foreign")
+library(foreign) #this will help when importing data that are not in csv.format(stata, sas, spss)
+#library(haven)
+
+if(!require("readstata13")) install.packages("readstata13")
+library(readstata13)
+
+rm(list = ls()) #clear the environment
+
+```
+# I. Loading the data set in R. 
+*We use function "rad.dta13" from the library "readstata13" which read the dta version of dataset from stata version 13 and above*
+```{r}
+Cps20 <- read.dta13("CPS_2020_monthly.dta")
+Cps21<-read.dta13("CPS_2021_23_monthly.dta")
+
+```
+
+# III. Looking at the data: Describe, Browse, Summarize, Tabulate
+### 7.
+```{r, eval=FALSE}
+#quickly look at data structure
+glimpse(Cps20) 
+
+#Summary statistic of all variables in the dataset
+summary(Cps20) 
+
+prop.table(table(Cps20$month)) # to check the frequency distribution of the value of a variable of interest; shows proportion.
+table(Cps20$month)#gives number of occurrence
+
+head(Cps20$month) # see a specific variable from the dataset
+
+is.na(Cps20$unemployed) # check missing data from a variable (return a true or false)
+sum(is.na(Cps20$unemployed)) # find count of missing values
+which(is.na(Cps20$unemployed)) #find the location of missing variable
+```
+
+### 8. Counting number of occurence of a variable
+```{r}
+# tabulate month
+Cps20 %>%
+  count(month)%>%# we use count function
+  mutate(Percent=round(n/sum(n),4)*100)%>% # frequency rounded at 3
+  arrange(desc(Percent))%>% # arranged in descending order
+  mutate(Percentile = cumsum(Percent))
+
+
+```
+# IV. Generating new variables; use mutate to add a new variable to the dataset
+### 10. 
+```{r}
+# tab to view dummy variable unemployed created
+Cps20%>%
+  group_by(empstat)%>% #group by empstat
+  summarise(mean_unemployed = mean(unemployed),
+            n =n()) # compute the mean of unemployed
+```
+
+### 11. create a dummy variable female
+```{r}
+Cps20<-Cps20 %>%
+  mutate(female=ifelse(sex=='female',1,0))
+
+```
+
+### 12. Compute the mean of the female variable
+```{r}
+# tabulate female
+Cps20%>%
+  count(female) %>%
+  mutate(percent = round(n/sum(n),4)*100)
+
+# summarise female
+Cps20%>%
+  summarise(Obs =n(),
+            mean_female = round(mean(female),3),
+            Std.dev. =round(sd(female),3),
+            min = min(female),
+            max = max(female))
+
+# optional: calculating average unemployment rate by sex in each month
+Cps20 %>% 
+  group_by(month,sex) %>%
+  summarise(aver_unemployed =round(mean(unemployed, na.rm =TRUE),3))%>%
+  pivot_wider(names_from = sex,
+              values_from = aver_unemployed)%>%
+  ungroup()
+```
+
+### 13. Generate a dummy variable 'college' for at least having 4-year college degree.
+
+*Create a dummy variable "college", which is equal to 1 if educ ( a person) has a bachelor's degree, master's degree, or a doctorate degree*
+*we use case_when function when we are treating more than one condition ( using more than one if-statement)*
+```{r}
+
+Cps20<-Cps20 %>%
+  mutate(college =case_when(Cps20$educ=="bachelor's degree"~1,
+                           Cps20$educ=="master's degree"~1,
+                           Cps20$educ=="doctorate degree"~1,
+                           TRUE~0))  
+```
+
+# V. Creating Tables and Figures to describe economic trends
+
+### 14. Compute unemployment rate accross months
+
+In stata, it's only one line of code: tab month, sum(unemployed)
+```{r}
+
+# number of employment and unemployment in each month: 
+table(Cps20$month, Cps20$unemployed)# tab month unemployed.
+
+# or you can do it in this way:
+unemployment<-Cps20%>%
+  filter(!is.na(month)& !is.na(unemployed))%>%
+  count(month, unemployed)%>%
+  pivot_wider(names_from = unemployed,
+              values_from = n) %>%
+  rename(unemployment_1="1",
+         employment_0="0")
+unemployment
+
+
+#Mean of unemployment rates in each month 
+Cps20%>%
+  group_by(month)%>%
+  #filter(month=="january")%>%
+  summarise(Obs = n(),
+            mean_unemployed = round(mean(unemployed, na.rm = TRUE), 3),
+            Std.dev. = round(sd(unemployed, na.rm=TRUE),3),
+            min =min(unemployed, na.rm = TRUE),
+            max =max(unemployed, na.rm = TRUE))
+ #*To compute the mean at a specific month, use filter function.* 
+```
+
+### 15. Unemployment Across Gender
+
+```{r}
+sum_female<-Cps20%>% 
+  group_by(month,female) %>%
+  summarise(aver_unemployed = mean(unemployed, na.rm =TRUE))%>%
+  pivot_wider(names_from = female,
+              values_from = aver_unemployed)%>%
+  rename(unemp_male ="0",
+         unemp_female="1")
+sum_female
+```
+
+### 16. Plots average unemployment accross gender
+*Plotting using R is optional,You can plot that in excel by using sum_female*
+```{r}
+ggplot(sum_female)+
+  geom_line(aes(month, unemp_male, group=1, color="male" ))+
+  geom_line(aes(month, unemp_female, group=1, color="female"))+
+  labs(
+    title = "Average unemployment rate accross gender",
+    subtitle = "in 2020",
+    x="Month",y="gender",
+    color=""
+  )
+  
+```
+
+### 17. Generate age categories from age variable
+
+```{r, include=FALSE}
+ Cps20_1<-Cps20%>% 
+  mutate(age =as.numeric(age))%>%
+  mutate(agecat = case_when(
+    age >= 20 & age < 30 ~ "1",
+    age >= 30 & age < 40 ~ "2",
+    age >= 40 & age < 50 ~ "3",
+    age >= 50 & age < 60 ~ "4",
+    age >= 60 & age < 70 ~ "5",
+    age >= 70 & age < 80 ~ "6",
+    age >= 80 & age < 90 ~ "7",
+    age >= 90 & age <= 150 ~ "8",
+    TRUE ~ "0"))
+#Cps20_1
+```
+### Unemployment accross age group
+```{r}
+Cps20_1%>%
+  group_by(month, agecat)%>%
+  summarise(aver_unemp=mean(unemployed, na.rm = TRUE))
+```
+
+### Graph unemployment accross age group
+```{r}
+age_graph<-Cps20_1%>%
+  group_by(month, agecat)%>%
+  summarise(aver_unemp=mean(unemployed, na.rm = TRUE))%>%
+  pivot_wider(names_from = agecat,
+              values_from = aver_unemp)%>%
+  rename(cat0 ="0", cat1="1", cat2="2",cat3="3", cat4="4", cat5="5")%>%
+  
+  ggplot()+
+  geom_line(aes(month, cat0, group=1, color="age<20"))+
+  geom_line(aes(month, cat1, group=1, color="between age 20 &30"))+
+  geom_line(aes(month, cat2, group=1, color="between age 30 &40"))+
+  geom_line(aes(month, cat3, group=1, color="between age 40 &50"))+
+  geom_line(aes(month, cat5, group=1, color="between age 50 &60"))+
+  geom_line(aes(month, cat5, group=1, color="age>60"))+
+  labs(
+    title = "Unemployment rates accross age category: 2020",
+    x="Months", y="Unemploymnt_rates",
+    color ="Age Groups"
+  )+
+  theme(axis.text.x = element_text(angle = 45, hjust = 0.1, vjust = 0))
+
+ age_graph 
+```
+
+### 18. Merge two datasets: append(merge across observation)
+```{r}
+
+Cps20_23<-bind_rows(Cps20, Cps21)
+```
+
+### Average unemployment accross years (2020-2023):table
+
+```{r}
+Cps20_23%>%
+  group_by(year)%>%
+  summarise(Obs =n(),
+            unemp_yrs=round(mean(unemployed, na.rm = TRUE),3),
+            Std.dev. = round(sd(unemployed, na.rm =TRUE),3),
+            min = min(unemployed, na.rm = TRUE),
+            max = max(unemployed,na.rm = TRUE)
+  )
+            
+```
+
+# Visualizing unemployment accross years(2020-2023)
+
+```{r}
+Cps20_23%>%
+  group_by(year,month)%>%
+  summarise(unemp_yrs=mean(unemployed, na.rm = TRUE))%>%
+  pivot_wider(names_from = year, 
+              values_from = unemp_yrs)%>%
+  rename(yr_2020="2020", yr_2021="2021", yr_2022="2022", yr_2023="2023")%>%
+  ggplot()+
+  geom_line(aes(month, yr_2020, group=1, color="2020"))+
+  geom_line(aes(month, yr_2021, group=1, color="2021"))+
+  geom_line(aes(month, yr_2022, group=1, color="2022"))+
+  geom_line(aes(month, yr_2023, group=1, color="2023"))+
+  labs(
+    title = "Unemployment rates",
+    y="Unemployment_rates", x="Months",
+    color = "Years"
+  )+
+  theme(axis.text.x = element_text(angle = 45, hjust = 0.1, vjust = 0))
+
+```
+
+#this is the end! thank you.
+
+
+
+

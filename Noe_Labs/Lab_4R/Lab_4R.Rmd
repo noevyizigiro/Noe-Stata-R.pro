@@ -1,0 +1,201 @@
+---
+title: "Regression Analysis (Econ 0211), Lab3: Lab 4: Getting Started with Multiple Regressions"
+author: "Noe Vyizigiro"
+date: "March, 2024"
+output:
+  html_document:
+    theme: cerulean
+    toc: TRUE #include table of content
+    toc_flaot: TRUE
+---
+## *Important packages (libraries) for this lab*:
+1. tidyverse
+2. haven
+3. stargazer
+4. gt: for saving summary tables
+# use the data from stata
+```{r}
+
+library(tidyverse)
+library(haven) #to help merge
+library(stargazer)
+
+if(!require("gt")) install.packages("gt")
+library(gt)
+
+rm(list = ls())
+```
+# Load data
+```{r}
+usa80_lab4<-read_csv("Ipums_USA_census_1980.csv")
+cpi<- read_csv("cpi_inflation_adju.csv")
+usa21_lab4<-read_csv("IPUMS_USA_ACS_2021_Lab_4.csv")
+
+# load the nv.R function package
+source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R") 
+
+```
+
+# 2. Append data
+```{r}
+usa_earnings<-bind_rows(usa21_lab4, usa80_lab4)%>%
+  dplyr::select(-cpi, -cpi_2021_factor, -cpi_adjust_to_2021, -real_earn, -ln_earn, -college) # remove these variables
+
+```
+
+# Tab sex year, sum(earning)
+```{r}
+tab1<-usa_earnings%>%
+  group_by(year, sex)%>%
+  summarise(mean_earning=mean(earnings,na.rm=TRUE))%>%
+  pivot_wider(names_from = year,
+              values_from = mean_earning)%>%
+  gt()%>%
+  tab_header(
+    title = "Average earnings accross years and gender"
+  )
+tab1
+#gtsave(tab1, "aver_earning.html") # save it in html, it can be opened in any format
+
+# or
+usa_sex<-usa_earnings%>%
+  group_by(year, sex)
+nv_sum(usa_sex, earnings, weight = FALSE)%>%
+  gt()%>%
+  tab_header(
+    title = "Average earnings accross years and gender")%>%
+  gtsave( "aver_earning.html") # save it in html, it can be opened in any format
+```
+
+# 4. Merge usa_earnings with cpi
+```{r}
+Earn_infra<-merge(usa_earnings, cpi, by="year", all.x = TRUE)
+
+# generate real_earning
+Earn_infra<-Earn_infra%>%
+  mutate(real_earn = earnings*cpi_adjust_to_2021)
+
+Earn_infra%>%
+  group_by(year, sex)%>%
+  summarise(mean_earn =mean(real_earn, na.rm=TRUE))%>%
+  pivot_wider(names_from = year,
+              values_from = mean_earn)
+# or
+earn_inf<-Earn_infra%>%
+  group_by(year, sex)
+nv_sum(earn_inf, real_earn, weight = FALSE)
+```
+# 5. Generate log real_earn
+```{r}
+Earn_infra<-Earn_infra%>%
+  mutate(ln_earn =log(real_earn))
+
+```
+
+# Regressions (fit the models)
+```{r}
+# Perform linear regression
+m1 <- lm(ln_earn ~ female, data = Earn_infra, subset = (year == 1980))
+summary(m1)
+m2 <- lm(ln_earn ~ female, data = Earn_infra, subset = (year == 2021))
+summary(m2)
+
+#create a regression table
+
+```
+
+# 6. Over 40 hrs and weeks worked
+```{r, include=FALSE}
+Earn_infra%>%
+  group_by(wkswork2)%>%
+  summarise(mean_earn =mean(real_earn, na.rm=TRUE))
+#creating dummy variable
+
+Earn_infra<-Earn_infra%>%
+  mutate(Over40Weeks = case_when(wkswork2=="40-47 weeks"~1,
+                                 wkswork2=="48-49 weeks"~1,
+                                 wkswork2=="50-52 weeks"~1,
+                                 TRUE~0))
+Earn_infra$uhrswork2<-as.numeric(Earn_infra$uhrswork) # make it a numeric
+```
+
+
+```{r, include=FALSE}
+Earn_infra%>%
+  dplyr::select(uhrswork, uhrswork2)
+```
+
+
+```{r}
+Earn_infra%>%
+  group_by(year)%>%
+  summarise(mean_hr=mean(uhrswork2, na.rm=TRUE),
+            n=n())
+```
+
+# Run regressions taking account weeks and hours worked
+```{r}
+m3<-lm(ln_earn~female, data =Earn_infra, subset =(Over40Weeks ==1 & uhrswork2>=40 & year ==1980 ))
+summary(m3)
+
+m4<-lm(ln_earn~female, data =Earn_infra, subset =(Over40Weeks ==1 & uhrswork2>=40 & year ==2021 ))
+summary(m4)
+
+```
+# 7. Including education
+
+```{r}
+# creating a college variable of at least having a college degree
+Earn_infra<-Earn_infra%>%
+  mutate(college =ifelse(edyears>=16,1,0))
+
+```
+
+# 8. Estimating regression, including college
+```{r}
+m5<-lm(ln_earn~female+college, data =Earn_infra, subset = (Over40Weeks ==1 & uhrswork2>=40 & year ==1980))
+summary(m5)
+
+m6<-lm(ln_earn~female+college, data =Earn_infra, subset = (Over40Weeks ==1 & uhrswork2>=40 & year ==2021))
+summary(m6)
+ 
+```
+
+# 9 & 10. Combining all the regressions using stargazer function
+```{r, include=TRUE}
+
+stargazer( m1, m2, m3, m4,m5, m6,
+          type = "text",
+          title = "Table 3. Log earnings on Female for years 1980 and 2021",
+          dep.var.caption = "DV: earings in year 1980 and 2021",
+          out = "table3.txt",
+          column.labels = c("80b","21b","80tb","21tb","80y","21y"),
+          notes = "Significance level"
+          )
+
+```
+
+### estimating and testing correlations
+```{r}
+cor(Earn_infra$female,Earn_infra$college, method = "pearson")
+cor.test(Earn_infra$female,Earn_infra$college, method = "pearson")
+
+```
+
+# 11. Creating race dummies
+```{r}
+Earn_infra%>%
+  group_by(race)%>%
+  summarise(mean = mean(real_earn))
+
+Earn_infra<-Earn_infra%>%
+  mutate(white_nh=ifelse(race=="white" & hispan=="not hispanic", 1,0),
+         black_nh=ifelse(race=="black/african american" & hispan =="not hispanic",1, 0),
+         hispan_nh=ifelse(hispan!="not hispanic", 1, 0),
+         other_nh=ifelse(race!="white" & race !="black/african american" & hispan =="not hispanic",1,0))
+
+nv_sum(Earn_infra, white_nh, black_nh, hispan_nh, other_nh, weight = FALSE)  
+```
+
+
+
