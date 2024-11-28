@@ -1,0 +1,506 @@
+---
+title: "Econ 0478 Research: Impact of Electrification on Employment diversification in subsaharan Africa"
+autor: "Noe Vyizigiro"
+date: "Spring 2024"
+output: html_notebook
+---
+
+
+```{r, include=FALSE}
+library(tidyverse)
+install.packages("readxl")
+library(readxl)
+library(cowplot) # group graphs together
+library(stargazer) # generate regression tables
+library(plm) # panel data regression model
+library(gplots) # to plots pannel data
+
+install.packages("kableExtra")
+library(kableExtra)
+install.packages("xtable")
+library(xtable)
+
+rm(list = ls())
+```
+
+load nv package
+```{r, include=FALSE}
+#source("/Volumes/middfiles/Classes/Fall23/ECON0211A/Noe_Labs/NV.R")
+source("/Users/noevyizigiro/iCloud Drive (Archive)/Documents/Documents /SPRING_2024/Econ0478 _research/DataCleaning/NV.R")
+```
+
+```{r, include=FALSE}
+agri_empl<-read_csv("agriculture_workers_percent_of_employment.csv") # agriculture employment (% of of total employment)
+manuf_empl<-read_csv("manuf_employ.csv") # employment in manufacturing (% of total employment)
+indus_empl<-read_csv("industry_workers_percent_of_employment.csv") # industry workers (% of total employment)
+service_empl<-read_csv("service_workers_percent_of_employment.csv") # industry workers (% of total employment)
+gdp_capita<- read_csv("gdp_pcap.csv") # income per capita
+electWb<-read_excel("WorldBank_electricity.xlsx")
+
+
+```
+
+# 1. electricity dataset(from the world bank)
+## transform the data where years become a colums alongside countries:
+use function pivot_longer, which is used to pivot data from wide to  wide format to long-format
+```{r}
+electWb$`Country Code`<-NULL # deleting the country code variable
+ 
+
+electWb0<-pivot_longer(electWb,
+                           cols = -country,
+                           names_to = "years",
+                           values_to = "electricity")
+comment(electWb0$electricity)<-("Access to electricity: % of the population") # adding a comment to a variable
+```
+
+##2. employment in Agriculture
+##transform the data (percentage of employment in Agriculture) where years become a colums alongside countries:
+
+```{r}
+agri_empl0<-pivot_longer(agri_empl,
+                           cols = -country,
+                           names_to = "years",
+                           values_to = "agri_emp")
+```
+```{r}
+agri_empl0%>%
+  group_by(country)%>%
+  summarise(mean = mean(agri_emp) )
+```
+##3. Industry employment
+## transform the data (percentage of employment in industry) where years become a colums alongside countries:
+```{r}
+indus_empl0<-pivot_longer(indus_empl,
+                          cols = -country,
+                          names_to = "years",
+                          values_to = "indus_emp")
+
+```
+##4. Manufacturing employment
+## transform the data (percentage of employment in manufacturing) where years become a colums alongside countries:
+```{r}
+manuf_empl0<-pivot_longer(manuf_empl,
+                         cols = -country,
+                         names_to = "years",
+                         values_to = "manuf_emp")
+
+```
+##5. service employment
+## transform the data (percentage of employment in service) where years become a colums alongside countries:
+```{r}
+service_empl0<-pivot_longer(service_empl,
+                            cols = -country,
+                            names_to = "years",
+                            values_to = "service_emp")
+
+```
+
+#merging all the datsets
+```{r}
+# merge all employment datasets togather
+employ<-agri_empl0%>%
+  left_join(indus_empl0, by=c("country", "years"))%>%
+  left_join(manuf_empl0, by= c("country", "years"))%>%
+  left_join(service_empl0, by =c("country", "years"))
+
+#merge employment data with electricity data
+elect_employ<-employ%>%
+  left_join(electWb0, by=c("country","years"))
+
+```
+
+## 6 GDP_capita data
+```{r, include=FALSE}
+# this is how to make all dataset numeric except one column:
+#gdp_capita %>%
+ # mutate(across(-c(country), function(x) as.numeric(as.character(x))))
+
+#But because we have some special element in the dataset, we have to go through these extra steps:
+gdp_capitaN0<-function(x){
+  #check if the value ends with K
+  ifelse(substring(x, nchar(x))=="k", as.numeric(substring(x,1,nchar(x)-1))*1000, as.numeric(x)) 
+  
+  #substring(x, nchar(x))=="k": extracts the last character of each value in x and check if =k
+}
+
+columns_to_convert<-names(gdp_capita)[names(gdp_capita) !="country"] # set all the columns to convert except one!
+gdp_capita[columns_to_convert] <- lapply(gdp_capita[columns_to_convert], gdp_capitaN0)
+
+
+gdp_capita <-pivot_longer(gdp_capita,
+                           cols = -country,
+                           names_to = "years",
+                           values_to = "GDPC")
+
+```
+
+#Data visualization
+```{r}
+elect_employ%>%
+  group_by(country)%>%
+  summarise(mean_agri =mean(agri_emp),
+            mean_elect=mean(electricity, na.rm = TRUE))
+```
+
+```{r}
+elect_employ%>%
+  group_by(country)%>%
+  filter(mean(agri_emp)>=50)%>%
+  summarise(mean_elect = mean(electricity, na.rm = TRUE))
+  
+```
+```{r}
+#unique(elect_employ$country)
+```
+
+# certain countries in SSA and some high income countries
+```{r}
+country_to_keep<-c("Australia","Burundi","Belgium","Benin","Burkina Faso","Botswana","Central African Republic","Afghanistan","Bangladesh","Cambodia","Comoros","Nepal","India", "Haiti", "Albania", "Canada","Switzerland","Cote d'Ivoire","Cameroon","Congo,Dem. Rep.","Congo,Rep.","Germany","Djibouti","Eritrea","Spain","Ethiopia","Finland","Gabon","Ghana","Guinea","Kenya","Lesotho","Mali","Mozambique","Mauritania","Mauritius","Malawi","Namibia", "Niger","Nigeria","Netherlands","Norway","Rwanda","Sudan","Somalia","Chad","Zambia","Zimbabwe","Togo","Tanzania","Uganda","Namibia","Eswatini","Sierra Leone", "Singapore","Oman", "Saudi Arabia", "Chile", "Japan","Qatar", "Peru" , "Phillippines", "Mexico", "Mongolia", "Kazakhstan","Jordan", "Indonesia","Guatemala", "El Salvador", "Guayana", "Ecuador")
+
+elect_employ0<-elect_employ[elect_employ$country %in% country_to_keep,]
+  
+```
+
+#Graph
+```{r}
+elect_employ0%>%
+  group_by(country)%>%
+  summarise(mean_agri =mean(agri_emp),
+            mean_elect=mean(electricity, na.rm = TRUE))%>%
+  ggplot()+
+  geom_point(aes( country, mean_agri, group=1, color =mean_agri))+
+  labs(x = "Country", y = "Mean Agriculture Employment") +  # Set x and y axis labels
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust =0),
+        axis.text = element_text(size = 8),
+        plot.margin = margin(1, 1, 1, 1, "cm"))+
+  scale_color_gradient(low = "blue", high = "red")
+  
+  
+  #geom_line(aes(years, mean_elect, group =1, color="mean_elect"))
+  
+```
+
+#graphs
+```{r}
+elect_employ0%>%
+  group_by(country, years)%>%
+  summarise(aver_empAgri=mean(agri_emp),
+            aver_empInd =mean(indus_emp),
+            aver_empSer=mean(service_emp),
+            aver_empM=mean(manuf_emp),
+            aver_elect=mean(electricity, na.rm = TRUE))
+
+elect_employ0%>%
+  summarise(aver_empAgri=mean(agri_emp),
+            aver_empInd =mean(indus_emp),
+            aver_empSer=mean(service_emp),
+            aver_empM=mean(manuf_emp),
+            aver_elect=mean(electricity, na.rm = TRUE))
+```
+
+#creating dummy variables
+we use %in% because we are making dummy variable using multiple variables
+```{r}
+elect_employSSA<-elect_employ0%>%
+  mutate(SSA =ifelse(country%in%c("Burundi","Benin","Burkina Faso","Botswana","Central African Republic","Cote d'Ivoire","Cameroon","Congo,Dem. Rep.","Congo,Rep.","Djibouti","Eritrea","Ethiopia","Gabon","Ghana","Guinea","Kenya","Lesotho","Mali","Mozambique","Mauritania","Mauritius","Malawi","Namibia","Nigeria","Rwanda","Niger","Sudan","Somalia","Chad","Zambia","Zimbabwe","Togo","Tanzania","Uganda","Namibia","Eswatini","Sierra Leone"),1,0))
+
+```
+
+#remove nas
+```{r}
+elect_empSSA<-elect_employSSA%>%
+  filter(years>=2000 )
+elect_empSSA
+```
+
+#summary
+```{r}
+summaryT<-elect_empSSA%>%
+  group_by(country)%>%
+  filter(SSA==1)%>%
+  summarise(mean_elect=mean(electricity),
+            mean_agri =mean(agri_emp),
+           mean_Manuf =mean(manuf_emp),
+           mean_service = mean(service_emp))
+
+summaryT
+
+#summary by category using nv_sum function:
+summary_SSA<-nv_sum(elect_empSSA%>% filter(SSA==0), electricity, agri_emp, manuf_emp, service_emp, weight = FALSE )
+print(xtable(summary_SSA, type="latex"))
+
+# other method
+SSA_table<-elect_empSSA%>%
+  filter(SSA== 1 )%>%
+  group_by(country)%>%
+  summarise(mean_elect = round(mean(electricity),2),
+            mean_agri =round(mean(agri_emp),2),
+            mean_manuf = round(mean(manuf_emp),2),
+            mean_service = round(mean(service_emp),2))
+
+SSA_table %>%
+  kbl(format= "html",
+   col.names = c("Country", "Electrification","Agriculture","Manufacturing","Services"),
+                  align="r") %>%
+   kable_classic(full_width = F, html_font = "Times New Roman")
+
+#latex table
+print(xtable(SSA_table, type="latex"))
+
+#non SSA countries
+Non_SSA_table<-elect_empSSA%>%
+  filter(SSA== 0 )%>%
+  group_by(country)%>%
+  summarise(mean_elect = round(mean(electricity),2),
+            mean_agri =round(mean(agri_emp),2),
+            mean_manuf = round(mean(manuf_emp),2),
+            mean_service = round(mean(service_emp),2))
+
+Non_SSA_table %>%
+  kbl(format= "html",
+   col.names = c("Country", "Electrification","Agriculture","Manufacturing","Services"),
+                  align="r") %>%
+   kable_classic(full_width = F, html_font = "Times New Roman")
+
+#latex table
+print(xtable(Non_SSA_table, type="latex"))
+  
+```
+
+#functions
+```{r}
+myf<-function(variable, t, title){
+  elect_empSSA%>%
+    group_by(SSA, years)%>%
+    filter(SSA==1)%>%
+    summarise(aver=mean({{variable}})) %>%
+    ggplot() +
+    geom_line(aes(x = years, y=aver, group =1)) +
+    labs(title=title,
+         x = "Years", y =t,
+         color="")+
+    theme_cowplot(12)+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0))  # Rotate x-axis labels
+}
+g_elect<-myf(electricity, "electricity_Average(%)", "Electrification(2000-2019)")
+g_elect
+g_agri<-myf(agri_emp, "mean_employment rate(%)", "Agriculture Sector(2000-2019")
+#g_agri
+g_manuf<-myf(manuf_emp, "mean_employment rate(%)", "Manufacturing Sector(2000-2019)")
+#g_manuf
+g_ser<-myf(service_emp, "mean_employment rate(%)", "Service sector(2000-2019)")
+#g_ser
+#jpeg(filename = "image3.jpeg")
+plot_grid(g_elect, g_agri, ncol=2,  align = "h")
+#dev.off()
+plot_grid(g_elect, g_manuf,ncol=2,  align = "h")
+plot_grid(g_elect, g_ser,ncol=2,  align = "h")
+
+
+```
+
+# plotting individual country
+```{r}
+unique<-function(variable, t, title, c){
+  elect_empSSA%>%
+    group_by(country, years)%>%
+    filter(country==c)%>%
+    summarise(aver=mean({{variable}})) %>%
+    ggplot() +
+    geom_line(aes(x = years, y=aver, group =country)) +
+    labs(title=title,
+         x = "Years", y =t,
+         color="")+
+    theme_cowplot(12)+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0))  # Rotate x-axis labels
+}
+unique(electricity, "electricity_Average(%)", "Electrification(2000-2019)", "Burundi")
+
+```
+
+# make the dataset pannel
+```{r}
+elect_empSSA.pd<-pdata.frame(elect_empSSA, index = c("country", "years"), drop.index = TRUE)
+```
+# unobserved heterogeneity
+```{r, include=True}
+
+plotmeans(agri_emp~country, main="Heterogeneity across countries", data=elect_empSSA)
+plotmeans(manuf_emp~country, main="Heterogeneity across countries", data=elect_empSSA)
+plotmeans(service_emp~country, main="Heterogeneity across countries", data=elect_empSSA)
+
+plotmeans(agri_emp~years, main="Heterogeneity across time", data=elect_empSSA)
+
+```
+
+# scatter and fit graph
+```{r}
+# creating region character used int the graph legend
+elect_empSSA <- elect_empSSA %>%
+    mutate(region = ifelse(SSA == 1, "SSA", "Non-SSA"))
+
+scatter<-function(meanx, title){
+  elect_empSSA%>%
+  group_by(country)%>%
+  mutate(Average =mean({{meanx}}))%>%
+  ggplot(mapping = aes(x=country, y= Average, group=1, color=region))+
+  labs(title = title,
+  subtitle="Year: 2000-2019",
+  color ="Region")+
+  geom_point()+
+  theme_bw()+
+     #theme_minimal()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0),# Rotate x-axis labels
+        plot.margin = margin(1, 1, 1, 1, "cm"))+
+  scale_color_manual(values = c("SSA" = "red", "Non-SSA" = "blue")) +
+    theme(legend.position = "right")
+  
+}
+#png(filename = "electrification.png") #save the image here
+#scatter(agri_emp,"Average Employment Rates in Agriculture Sector Across Nations" )
+scatter(electricity,"Average Electrification Rates Across Nations" )
+
+#dev.off()
+
+```
+
+# Regression models
+```{r, include=FALSE}
+m1<-lm(agri_emp~electricity, data = elect_empSSA)
+m2<-lm(service_emp~electricity, data = elect_empSSA)
+m3<-lm(manuf_emp~electricity, data = elect_empSSA)
+
+
+```
+if electricity is correlated with country fixed effects, country fixed effect or idiosyncratic error term, the OLS results will be biased and we wont be able to correctly estimate the impact of electrification on employment diversification.
+
+# fixed effect estimation
+```{r}
+#using dummies:
+fe1<-plm(agri_emp~electricity, index = "country", model="within", data = elect_empSSA)
+summary(fe1)
+
+stargazer(fe1,
+          type ="html",
+          title = "Table2. Electricity on Employment: dummies FE",
+          out = "table2.html",
+          notes = "Significance levels")
+
+```
+
+```{r, include=TRUE}
+fe2<-plm(agri_emp~electricity, index = c("country", "years"), model="within", data = elect_empSSA)
+fe3<-plm(service_emp~electricity, index = c("country", "years"), model="within", data = elect_empSSA)
+fe4<-plm(manuf_emp~electricity, index = c("country", "years"), model="within", data = elect_empSSA)
+
+stargazer(m1,m2, m3, fe2,fe3, fe4,
+          type ="latex",
+          title = "Table1. Electricity on Employment: OLS and FE",
+          out = "table1.tex",
+          notes = "Significance levels")
+
+
+re2<-plm(agri_emp~electricity, index = c("years", "country"), model="random", data = elect_empSSA)
+summary(re2)
+
+phtest(fe2, re2)
+#the hausman test shows that p_value is significant, which  means that FE is more prefrerable than re. we will use FE 
+```
+#other diagnosis
+```{r}
+fixef(fe2)
+pFtest(fe2, m1) # it is significant: the assumption that countries are different is true; fixed effect is better than OLS
+plmtest(fe2, c("time"), type = ("bp")) #this is insignificant, so we can assume that countries are not different in time
+
+```
+
+#controling for region
+```{r, include=TRUE}
+mr1<-plm(agri_emp~electricity,subset = (SSA==1), data = elect_empSSA, index = c("country", "years"), model = "within")
+mr2<-plm(manuf_emp~electricity,subset = (SSA==1), data = elect_empSSA,index = c("country", "years"), model = "within")
+mr3<-plm(service_emp~electricity,subset = (SSA==1), data = elect_empSSA, index = c("country", "years"), model = "within")
+
+mr4<-plm(agri_emp~electricity,subset = (SSA==0), data = elect_empSSA, index = c("country", "years"), model = "within")
+mr5<-plm(manuf_emp~electricity,subset = (SSA==0), data = elect_empSSA, index = c("country", "years"), model = "within")
+mr6<-plm(service_emp~electricity,subset = (SSA==0), data = elect_empSSA, index = c("country", "years"), model = "within")
+
+stargazer(mr1, mr2, mr3, mr4, mr5,mr6,
+          type = "latex",
+          title = "Table 3. Sub-Saharan Africa vs. Non-Sub-Saharan Africa",
+          out = "table3.tex",
+          notes = "Significance levels")
+
+```
+
+# controlling for subsaharan Africa
+```{r}
+sr1<-plm(agri_emp~electricity, data = elect_empSSA, index = "SSA", model = "within")
+
+sr2<-plm(manuf_emp~electricity, data = elect_empSSA,index = "SSA", model = "within")
+
+sr3<-plm(service_emp~electricity, data = elect_empSSA, index = "SSA", model = "within")
+
+stargazer(sr1, sr2, sr3,
+          type = "html",
+          title = "Table 4. Controlling for SSA",
+          out = "table4.html",
+          notes = "Significance levels")
+
+```
+
+```{r}
+mc1<-lm(agri_emp~electricity,subset = (country=="Mexico"), data = elect_empSSA)
+summary(mc1)
+```
+
+# this is to generate a summary table of the means of these selected countries
+```{r}
+table1<-elect_empSSA%>%
+  filter(country==c("Burundi", "Indonesia", "Benin", "Chad", "Ethiopia", "India", "Rwanda", "Mexico", "Afghanistan", "Bangladesh", "Guatemala"))%>%
+  group_by(country)%>%
+  summarise(mean_elect = round(mean(electricity),2),
+            mean_agri =round(mean(agri_emp),2),
+            mean_manuf = round(mean(manuf_emp),2),
+            mean_service = round(mean(service_emp),2))
+
+table1 %>%
+  kbl(caption="Table 3: Average Rates Across Sample Countries from 2000-2019",
+       format= "html",
+   col.names = c("Country", "Electrification","Agriculture","Manufacturing","Services"),
+                  align="r") %>%
+   kable_classic(full_width = F, html_font = "Times New Roman")
+
+# latex table
+print(xtable(table1, type="latex"))
+```
+
+#Run regression for each individual country to observe how the coefficients behave
+```{r}
+c1<-plm(agri_emp~electricity,subset = (country=="Afghanistan"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c2<-plm(agri_emp~electricity,subset = (country=="Bangladesh"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c3<-plm(agri_emp~electricity,subset = (country=="Benin"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c4<-plm(agri_emp~electricity,subset = (country=="Burundi"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c5<-plm(agri_emp~electricity,subset = (country=="Chad"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c6<-plm(agri_emp~electricity,subset = (country=="Ethiopia"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c7<-plm(agri_emp~electricity,subset = (country=="Guatemala"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c8<-plm(agri_emp~electricity,subset = (country=="India"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c9<-plm(agri_emp~electricity,subset = (country=="Indonesia"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c10<-plm(agri_emp~electricity,subset = (country=="Mexico"), data = elect_empSSA, index = c("country", "years"), model = "within")
+c11<-plm(agri_emp~electricity,subset = (country=="Rwanda"), data = elect_empSSA, index = c("country", "years"), model = "within")
+
+
+
+stargazer(c1,c2,c3,c4,c5,c6,c7, c8, c9, c10, c11,
+          type = "latex",
+          title = "Table 3. Country-based Analysis",
+          out = "table3.tex",
+          notes = "Significance levels")
+
+```
+
+
+
+
+
+
