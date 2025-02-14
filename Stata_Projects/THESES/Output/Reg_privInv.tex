@@ -1,0 +1,39 @@
+\begin{table}[H] \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi} \caption{Private Investment} \begin{adjustbox}{max width=\textwidth} \begin{tabular}{l*{7}{c}} \\ \hline\hline
+            &\multicolumn{3}{c}{Priv-Inv:OLS}                                 &\multicolumn{4}{c}{Priv-Inv:IV-2SLS}                                                   \\\cmidrule(lr){2-4}\cmidrule(lr){5-8}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         &\multicolumn{1}{c}{(7)}         \\
+\hline \addlinespace \multicolumn{7}{l}{} \\  \addlinespace[2pt]
+Exchange Rate Volatility&       0.137         &       0.199         &      -0.000         &      -0.092         &      -0.091         &      -0.439         &      -0.299         \\
+            &     (0.169)         &     (0.133)         &     (0.115)         &     (0.262)         &     (0.321)         &     (0.634)         &     (0.940)         \\
+\addlinespace
+GDP per Capita Growth&                     &                     &      -0.011         &                     &       0.015         &       0.016         &      -0.045         \\
+            &                     &                     &     (0.110)         &                     &     (0.122)         &     (0.122)         &     (0.154)         \\
+\addlinespace
+Gross Domestic Saving&                     &                     &      -0.047         &                     &                     &                     &      -0.037         \\
+            &                     &                     &     (0.077)         &                     &                     &                     &     (0.077)         \\
+\addlinespace
+Broad Money Growth&                     &                     &      -0.003         &                     &                     &                     &       0.005         \\
+            &                     &                     &     (0.023)         &                     &                     &                     &     (0.036)         \\
+\addlinespace
+Electrification&                     &                     &      -0.051         &                     &                     &      -0.112         &      -0.047         \\
+            &                     &                     &     (0.074)         &                     &                     &     (0.081)         &     (0.064)         \\
+\addlinespace
+Corruption control&                     &                     &       1.447         &                     &       2.665\sym{**} &       3.550\sym{***}&       1.464         \\
+            &                     &                     &     (1.379)         &                     &     (1.234)         &     (1.373)         &     (1.342)         \\
+\addlinespace
+Total N.Resource Rents&                     &                     &      -0.016         &                     &                     &      -0.032         &      -0.034         \\
+            &                     &                     &     (0.105)         &                     &                     &     (0.101)         &     (0.114)         \\
+\addlinespace
+Crop Prod. Index&                     &                     &       0.027         &                     &                     &                     &       0.020         \\
+            &                     &                     &     (0.027)         &                     &                     &                     &     (0.038)         \\
+\addlinespace
+Inflation   &                     &                     &       0.058         &                     &                     &       0.066         &       0.093         \\
+            &                     &                     &     (0.038)         &                     &                     &     (0.078)         &     (0.108)         \\
+\addlinespace
+Marchandise Trade(\%gdp)&                     &                     &       0.262\sym{***}&                     &                     &                     &       0.267\sym{***}\\
+            &                     &                     &     (0.038)         &                     &                     &                     &     (0.037)         \\
+\midrule
+\(N\)       &         494         &         494         &         346         &         494         &         442         &         425         &         346         \\
+Currency fixed-effects&          No         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+Time Fixed-effects&          No         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+R^{2}       &       0.005         &       0.754         &       0.819         &       0.736         &       0.777         &       0.764         &       0.814         \\
+\bottomrule \end{tabular} \end{adjustbox} \footnotesize \item Robust standard errors are in parentheses; it is important to use robust due to potential serial correlation, which can lead to understated standard errors and inflated statistical significance. Model 1-3 are estimated with simple OLS. The dependent variable is Private Investment (percentage of GDP). The sample include 26 currencies, from 1999-2017, used in 36 sub-Saharan African countries.The Stars are significant level where * 0.10 ** 0.05 *** 0.01. \end{table}

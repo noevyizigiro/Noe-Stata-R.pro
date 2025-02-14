@@ -1,0 +1,1023 @@
+Year,IFS Code,Country,Code,Index,Category,Status
+1999,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+1999,614,Angola,161,III.C.8.,Independently floating,yes
+1999,638,Benin,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,616,Botswana,153,III.C.3.,Conventional pegged arrangement,yes
+1999,748,Burkina Faso,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+1999,622,Cameroon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,626,Central African Republic,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,628,Chad,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+1999,634,"Congo, Republic of",158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,662,C™te d_Ivoire,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+1999,643,Eritrea,161,III.C.8.,Independently floating,yes
+1999,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+1999,644,Ethiopia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+1999,646,Gabon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,648,"Gambia, The",161,III.C.8.,Independently floating,yes
+1999,652,Ghana,161,III.C.8.,Independently floating,yes
+1999,656,Guinea,161,III.C.8.,Independently floating,yes
+1999,654,Guinea-Bissau,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+1999,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+1999,668,Liberia,161,III.C.8.,Independently floating,yes
+1999,674,Madagascar,161,III.C.8.,Independently floating,yes
+1999,676,Malawi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+1999,678,Mali,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,682,Mauritania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+1999,684,Mauritius,161,III.C.8.,Independently floating,yes
+1999,688,Mozambique,161,III.C.8.,Independently floating,yes
+1999,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+1999,692,Niger,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+1999,714,Rwanda,161,III.C.8.,Independently floating,yes
+1999,722,Senegal,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,724,Sierra Leone,161,III.C.8.,Independently floating,yes
+1999,726,Somalia,161,III.C.8.,Independently floating,yes
+1999,199,South Africa,161,III.C.8.,Independently floating,yes
+1999,732,Sudan,161,III.C.8.,Independently floating,yes
+1999,738,Tanzania,161,III.C.8.,Independently floating,yes
+1999,742,Togo,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+1999,746,Uganda,161,III.C.8.,Independently floating,yes
+1999,754,Zambia,161,III.C.8.,Independently floating,yes
+1999,698,Zimbabwe,153,III.C.3.,Conventional pegged arrangement,yes
+2000,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,614,Angola,161,III.C.8.,Independently floating,yes
+2000,638,Benin,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,616,Botswana,153,III.C.3.,Conventional pegged arrangement,yes
+2000,748,Burkina Faso,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,622,Cameroon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,626,Central African Republic,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,628,Chad,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2000,634,"Congo, Republic of",158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,662,C™te d_Ivoire,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2000,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2000,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2000,644,Ethiopia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,646,Gabon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,648,"Gambia, The",161,III.C.8.,Independently floating,yes
+2000,652,Ghana,161,III.C.8.,Independently floating,yes
+2000,656,Guinea,161,III.C.8.,Independently floating,yes
+2000,654,Guinea-Bissau,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2000,668,Liberia,161,III.C.8.,Independently floating,yes
+2000,674,Madagascar,161,III.C.8.,Independently floating,yes
+2000,676,Malawi,161,III.C.8.,Independently floating,yes
+2000,678,Mali,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,682,Mauritania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,684,Mauritius,161,III.C.8.,Independently floating,yes
+2000,688,Mozambique,161,III.C.8.,Independently floating,yes
+2000,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2000,692,Niger,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,714,Rwanda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,722,Senegal,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,724,Sierra Leone,161,III.C.8.,Independently floating,yes
+2000,726,Somalia,161,III.C.8.,Independently floating,yes
+2000,199,South Africa,161,III.C.8.,Independently floating,yes
+2000,732,Sudan,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2000,738,Tanzania,161,III.C.8.,Independently floating,yes
+2000,742,Togo,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2000,746,Uganda,161,III.C.8.,Independently floating,yes
+2000,754,Zambia,161,III.C.8.,Independently floating,yes
+2000,698,Zimbabwe,156,III.C.5.,Crawling peg,yes
+2001,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,614,Angola,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,638,Benin,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,616,Botswana,153,III.C.3.,Conventional pegged arrangement,yes
+2001,748,Burkina Faso,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,622,Cameroon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,626,Central African Republic,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,628,Chad,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2001,634,"Congo, Republic of",158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,662,C™te d_Ivoire,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2001,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2001,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2001,644,Ethiopia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,646,Gabon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,648,"Gambia, The",161,III.C.8.,Independently floating,yes
+2001,652,Ghana,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,656,Guinea,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,654,Guinea-Bissau,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2001,668,Liberia,161,III.C.8.,Independently floating,yes
+2001,674,Madagascar,161,III.C.8.,Independently floating,yes
+2001,676,Malawi,161,III.C.8.,Independently floating,yes
+2001,678,Mali,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,682,Mauritania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,684,Mauritius,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,688,Mozambique,161,III.C.8.,Independently floating,yes
+2001,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2001,692,Niger,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,714,Rwanda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,722,Senegal,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,724,Sierra Leone,161,III.C.8.,Independently floating,yes
+2001,726,Somalia,161,III.C.8.,Independently floating,yes
+2001,199,South Africa,161,III.C.8.,Independently floating,yes
+2001,732,Sudan,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,738,Tanzania,161,III.C.8.,Independently floating,yes
+2001,742,Togo,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2001,746,Uganda,161,III.C.8.,Independently floating,yes
+2001,754,Zambia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2001,698,Zimbabwe,153,III.C.3.,Conventional pegged arrangement,yes
+2002,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,614,Angola,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,638,Benin,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,616,Botswana,153,III.C.3.,Conventional pegged arrangement,yes
+2002,748,Burkina Faso,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,622,Cameroon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,626,Central African Republic,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,628,Chad,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2002,634,"Congo, Republic of",158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,662,C™te d_Ivoire,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2002,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2002,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2002,644,Ethiopia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,646,Gabon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,648,"Gambia, The",163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,652,Ghana,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,656,Guinea,153,III.C.3.,Conventional pegged arrangement,yes
+2002,654,Guinea-Bissau,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2002,668,Liberia,161,III.C.8.,Independently floating,yes
+2002,674,Madagascar,161,III.C.8.,Independently floating,yes
+2002,676,Malawi,161,III.C.8.,Independently floating,yes
+2002,678,Mali,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,682,Mauritania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,684,Mauritius,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,688,Mozambique,161,III.C.8.,Independently floating,yes
+2002,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2002,692,Niger,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,714,Rwanda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,722,Senegal,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,724,Sierra Leone,161,III.C.8.,Independently floating,yes
+2002,726,Somalia,161,III.C.8.,Independently floating,yes
+2002,199,South Africa,161,III.C.8.,Independently floating,yes
+2002,732,Sudan,165,III.C.4.,Pegged exchange rate within horizontal bands,yes
+2002,738,Tanzania,161,III.C.8.,Independently floating,yes
+2002,742,Togo,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2002,746,Uganda,161,III.C.8.,Independently floating,yes
+2002,754,Zambia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2002,698,Zimbabwe,153,III.C.3.,Conventional pegged arrangement,yes
+2003,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,614,Angola,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,638,Benin,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,616,Botswana,153,III.C.3.,Conventional pegged arrangement,yes
+2003,748,Burkina Faso,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,622,Cameroon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,626,Central African Republic,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,628,Chad,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2003,634,"Congo, Republic of",158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,662,C™te d_Ivoire,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2003,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2003,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2003,644,Ethiopia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,646,Gabon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,648,"Gambia, The",163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,652,Ghana,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,656,Guinea,153,III.C.3.,Conventional pegged arrangement,yes
+2003,654,Guinea-Bissau,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2003,668,Liberia,161,III.C.8.,Independently floating,yes
+2003,674,Madagascar,161,III.C.8.,Independently floating,yes
+2003,676,Malawi,161,III.C.8.,Independently floating,yes
+2003,678,Mali,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,682,Mauritania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,684,Mauritius,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,688,Mozambique,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2003,692,Niger,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,714,Rwanda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,722,Senegal,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,724,Sierra Leone,161,III.C.8.,Independently floating,yes
+2003,726,Somalia,161,III.C.8.,Independently floating,yes
+2003,199,South Africa,161,III.C.8.,Independently floating,yes
+2003,732,Sudan,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,738,Tanzania,161,III.C.8.,Independently floating,yes
+2003,742,Togo,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2003,746,Uganda,161,III.C.8.,Independently floating,yes
+2003,754,Zambia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2003,698,Zimbabwe,153,III.C.3.,Conventional pegged arrangement,yes
+2004,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,614,Angola,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,638,Benin,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,616,Botswana,156,III.C.5.,Crawling peg,yes
+2004,748,Burkina Faso,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,622,Cameroon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,626,Central African Republic,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,628,Chad,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2004,634,"Congo, Republic of",158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,662,C™te d_Ivoire,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2004,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2004,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2004,644,Ethiopia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,646,Gabon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,648,"Gambia, The",163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,652,Ghana,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,656,Guinea,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,654,Guinea-Bissau,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2004,668,Liberia,161,III.C.8.,Independently floating,yes
+2004,674,Madagascar,161,III.C.8.,Independently floating,yes
+2004,676,Malawi,161,III.C.8.,Independently floating,yes
+2004,678,Mali,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,682,Mauritania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,684,Mauritius,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,688,Mozambique,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2004,692,Niger,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,714,Rwanda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,722,Senegal,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,724,Sierra Leone,161,III.C.8.,Independently floating,yes
+2004,726,Somalia,161,III.C.8.,Independently floating,yes
+2004,199,South Africa,161,III.C.8.,Independently floating,yes
+2004,732,Sudan,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,738,Tanzania,161,III.C.8.,Independently floating,yes
+2004,742,Togo,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2004,746,Uganda,161,III.C.8.,Independently floating,yes
+2004,754,Zambia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2004,698,Zimbabwe,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,614,Angola,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,638,Benin,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,616,Botswana,156,III.C.5.,Crawling peg,yes
+2005,748,Burkina Faso,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,622,Cameroon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,626,Central African Republic,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,628,Chad,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2005,634,"Congo, Republic of",158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,662,C™te d_Ivoire,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2005,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2005,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2005,644,Ethiopia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,646,Gabon,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,648,"Gambia, The",163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,652,Ghana,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,656,Guinea,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,654,Guinea-Bissau,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2005,668,Liberia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,674,Madagascar,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,676,Malawi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,678,Mali,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,682,Mauritania,153,III.C.3.,Conventional pegged arrangement,yes
+2005,684,Mauritius,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,688,Mozambique,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2005,692,Niger,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,714,Rwanda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,722,Senegal,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,724,Sierra Leone,161,III.C.8.,Independently floating,yes
+2005,726,Somalia,161,III.C.8.,Independently floating,yes
+2005,199,South Africa,161,III.C.8.,Independently floating,yes
+2005,732,Sudan,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,738,Tanzania,161,III.C.8.,Independently floating,yes
+2005,742,Togo,158,III.C.1.,Exchange arrangement with no separate legal tender,yes
+2005,746,Uganda,161,III.C.8.,Independently floating,yes
+2005,754,Zambia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2005,698,Zimbabwe,153,III.C.3.,Conventional pegged arrangement,yes
+2006,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,614,Angola,153,III.C.3.,Conventional pegged arrangement,yes
+2006,638,Benin,153,III.C.3.,Conventional pegged arrangement,yes
+2006,616,Botswana,156,III.C.5.,Crawling peg,yes
+2006,748,Burkina Faso,153,III.C.3.,Conventional pegged arrangement,yes
+2006,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,622,Cameroon,153,III.C.3.,Conventional pegged arrangement,yes
+2006,626,Central African Republic,153,III.C.3.,Conventional pegged arrangement,yes
+2006,628,Chad,153,III.C.3.,Conventional pegged arrangement,yes
+2006,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2006,634,"Congo, Republic of",153,III.C.3.,Conventional pegged arrangement,yes
+2006,662,C™te d_Ivoire,153,III.C.3.,Conventional pegged arrangement,yes
+2006,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2006,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2006,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2006,644,Ethiopia,153,III.C.3.,Conventional pegged arrangement,yes
+2006,646,Gabon,153,III.C.3.,Conventional pegged arrangement,yes
+2006,648,"Gambia, The",163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,652,Ghana,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,656,Guinea,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,654,Guinea-Bissau,153,III.C.3.,Conventional pegged arrangement,yes
+2006,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2006,668,Liberia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,674,Madagascar,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,676,Malawi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,678,Mali,153,III.C.3.,Conventional pegged arrangement,yes
+2006,682,Mauritania,153,III.C.3.,Conventional pegged arrangement,yes
+2006,684,Mauritius,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,688,Mozambique,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2006,692,Niger,153,III.C.3.,Conventional pegged arrangement,yes
+2006,694,Nigeria,153,III.C.3.,Conventional pegged arrangement,yes
+2006,714,Rwanda,153,III.C.3.,Conventional pegged arrangement,yes
+2006,722,Senegal,153,III.C.3.,Conventional pegged arrangement,yes
+2006,724,Sierra Leone,156,III.C.5.,Crawling peg,yes
+2006,726,Somalia,161,III.C.8.,Independently floating,yes
+2006,199,South Africa,161,III.C.8.,Independently floating,yes
+2006,732,Sudan,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,738,Tanzania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,742,Togo,153,III.C.3.,Conventional pegged arrangement,yes
+2006,746,Uganda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,754,Zambia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2006,698,Zimbabwe,153,III.C.3.,Conventional pegged arrangement,yes
+2007,612,Algeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,614,Angola,153,III.C.3.,Conventional pegged arrangement,yes
+2007,638,Benin,153,III.C.3.,Conventional pegged arrangement,yes
+2007,616,Botswana,156,III.C.5.,Crawling peg,yes
+2007,748,Burkina Faso,153,III.C.3.,Conventional pegged arrangement,yes
+2007,618,Burundi,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,622,Cameroon,153,III.C.3.,Conventional pegged arrangement,yes
+2007,626,Central African Republic,153,III.C.3.,Conventional pegged arrangement,yes
+2007,628,Chad,153,III.C.3.,Conventional pegged arrangement,yes
+2007,636,"Congo, Democratic Republic of the",161,III.C.8.,Independently floating,yes
+2007,634,"Congo, Republic of",153,III.C.3.,Conventional pegged arrangement,yes
+2007,662,C™te d_Ivoire,153,III.C.3.,Conventional pegged arrangement,yes
+2007,611,Djibouti,157,III.C.2.,Currency board arrangement,yes
+2007,643,Eritrea,153,III.C.3.,Conventional pegged arrangement,yes
+2007,734,Eswatini,153,III.C.3.,Conventional pegged arrangement,yes
+2007,644,Ethiopia,156,III.C.5.,Crawling peg,yes
+2007,646,Gabon,153,III.C.3.,Conventional pegged arrangement,yes
+2007,648,"Gambia, The",163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,652,Ghana,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,656,Guinea,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,654,Guinea-Bissau,153,III.C.3.,Conventional pegged arrangement,yes
+2007,664,Kenya,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,666,Lesotho,153,III.C.3.,Conventional pegged arrangement,yes
+2007,668,Liberia,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,674,Madagascar,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,676,Malawi,153,III.C.3.,Conventional pegged arrangement,yes
+2007,678,Mali,153,III.C.3.,Conventional pegged arrangement,yes
+2007,682,Mauritania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,684,Mauritius,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,688,Mozambique,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,728,Namibia,153,III.C.3.,Conventional pegged arrangement,yes
+2007,692,Niger,153,III.C.3.,Conventional pegged arrangement,yes
+2007,694,Nigeria,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,714,Rwanda,153,III.C.3.,Conventional pegged arrangement,yes
+2007,722,Senegal,153,III.C.3.,Conventional pegged arrangement,yes
+2007,724,Sierra Leone,153,III.C.3.,Conventional pegged arrangement,yes
+2007,726,Somalia,161,III.C.8.,Independently floating,yes
+2007,199,South Africa,161,III.C.8.,Independently floating,yes
+2007,732,Sudan,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,738,Tanzania,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,742,Togo,153,III.C.3.,Conventional pegged arrangement,yes
+2007,746,Uganda,163,III.C.7.,Managed floating with no pre_determined path for the exchange rate,yes
+2007,754,Zambia,161,III.C.8.,Independently floating,yes
+2007,698,Zimbabwe,153,III.C.3.,Conventional pegged arrangement,yes
+2008,612,Algeria,978,III.C.9.,Floating,yes
+2008,614,Angola,974,III.C.4.,Stabilized arrangement,yes
+2008,638,Benin,973,III.C.3.,Conventional peg,yes
+2008,616,Botswana,159,III.C.5.,Crawling peg,yes
+2008,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2008,618,Burundi,978,III.C.9.,Floating,yes
+2008,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2008,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2008,628,Chad,973,III.C.3.,Conventional peg,yes
+2008,636,"Congo, Democratic Republic of the",979,III.C.10.,Free floating,yes
+2008,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2008,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2008,611,Djibouti,972,III.C.2.,Currency board,yes
+2008,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2008,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2008,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2008,646,Gabon,973,III.C.3.,Conventional peg,yes
+2008,648,"Gambia, The",978,III.C.9.,Floating,yes
+2008,652,Ghana,978,III.C.9.,Floating,yes
+2008,656,Guinea,978,III.C.9.,Floating,yes
+2008,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2008,664,Kenya,978,III.C.9.,Floating,yes
+2008,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2008,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2008,674,Madagascar,978,III.C.9.,Floating,yes
+2008,676,Malawi,974,III.C.4.,Stabilized arrangement,yes
+2008,678,Mali,973,III.C.3.,Conventional peg,yes
+2008,682,Mauritania,977,III.C.8.,Other managed arrangement,yes
+2008,684,Mauritius,979,III.C.10.,Free floating,yes
+2008,688,Mozambique,978,III.C.9.,Floating,yes
+2008,728,Namibia,973,III.C.3.,Conventional peg,yes
+2008,692,Niger,973,III.C.3.,Conventional peg,yes
+2008,694,Nigeria,977,III.C.8.,Other managed arrangement,yes
+2008,714,Rwanda,977,III.C.8.,Other managed arrangement,yes
+2008,722,Senegal,973,III.C.3.,Conventional peg,yes
+2008,724,Sierra Leone,978,III.C.9.,Floating,yes
+2008,726,Somalia,979,III.C.10.,Free floating,yes
+2008,199,South Africa,978,III.C.9.,Floating,yes
+2008,732,Sudan,978,III.C.9.,Floating,yes
+2008,738,Tanzania,978,III.C.9.,Floating,yes
+2008,742,Togo,973,III.C.3.,Conventional peg,yes
+2008,746,Uganda,978,III.C.9.,Floating,yes
+2008,754,Zambia,978,III.C.9.,Floating,yes
+2008,698,Zimbabwe,977,III.C.8.,Other managed arrangement,yes
+2009,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2009,614,Angola,977,III.C.8.,Other managed arrangement,yes
+2009,638,Benin,973,III.C.3.,Conventional peg,yes
+2009,616,Botswana,159,III.C.5.,Crawling peg,yes
+2009,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2009,618,Burundi,974,III.C.4.,Stabilized arrangement,yes
+2009,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2009,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2009,628,Chad,973,III.C.3.,Conventional peg,yes
+2009,636,"Congo, Democratic Republic of the",978,III.C.9.,Floating,yes
+2009,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2009,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2009,611,Djibouti,972,III.C.2.,Currency board,yes
+2009,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2009,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2009,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2009,646,Gabon,973,III.C.3.,Conventional peg,yes
+2009,648,"Gambia, The",978,III.C.9.,Floating,yes
+2009,652,Ghana,978,III.C.9.,Floating,yes
+2009,656,Guinea,977,III.C.8.,Other managed arrangement,yes
+2009,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2009,664,Kenya,978,III.C.9.,Floating,yes
+2009,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2009,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2009,674,Madagascar,978,III.C.9.,Floating,yes
+2009,676,Malawi,977,III.C.8.,Other managed arrangement,yes
+2009,678,Mali,973,III.C.3.,Conventional peg,yes
+2009,682,Mauritania,977,III.C.8.,Other managed arrangement,yes
+2009,684,Mauritius,979,III.C.10.,Free floating,yes
+2009,688,Mozambique,978,III.C.9.,Floating,yes
+2009,728,Namibia,973,III.C.3.,Conventional peg,yes
+2009,692,Niger,973,III.C.3.,Conventional peg,yes
+2009,694,Nigeria,977,III.C.8.,Other managed arrangement,yes
+2009,714,Rwanda,974,III.C.4.,Stabilized arrangement,yes
+2009,722,Senegal,973,III.C.3.,Conventional peg,yes
+2009,724,Sierra Leone,978,III.C.9.,Floating,yes
+2009,726,Somalia,979,III.C.10.,Free floating,yes
+2009,199,South Africa,978,III.C.9.,Floating,yes
+2009,732,Sudan,978,III.C.9.,Floating,yes
+2009,738,Tanzania,978,III.C.9.,Floating,yes
+2009,742,Togo,973,III.C.3.,Conventional peg,yes
+2009,746,Uganda,978,III.C.9.,Floating,yes
+2009,754,Zambia,978,III.C.9.,Floating,yes
+2009,698,Zimbabwe,971,III.C.1.,No separate legal tender,yes
+2010,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2010,614,Angola,977,III.C.8.,Other managed arrangement,yes
+2010,638,Benin,973,III.C.3.,Conventional peg,yes
+2010,616,Botswana,159,III.C.5.,Crawling peg,yes
+2010,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2010,618,Burundi,974,III.C.4.,Stabilized arrangement,yes
+2010,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2010,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2010,628,Chad,973,III.C.3.,Conventional peg,yes
+2010,636,"Congo, Democratic Republic of the",975,III.C.6.,Crawl-like arrangement,yes
+2010,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2010,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2010,611,Djibouti,972,III.C.2.,Currency board,yes
+2010,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2010,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2010,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2010,646,Gabon,973,III.C.3.,Conventional peg,yes
+2010,648,"Gambia, The",978,III.C.9.,Floating,yes
+2010,652,Ghana,978,III.C.9.,Floating,yes
+2010,656,Guinea,977,III.C.8.,Other managed arrangement,yes
+2010,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2010,664,Kenya,978,III.C.9.,Floating,yes
+2010,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2010,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2010,674,Madagascar,978,III.C.9.,Floating,yes
+2010,676,Malawi,974,III.C.4.,Stabilized arrangement,yes
+2010,678,Mali,973,III.C.3.,Conventional peg,yes
+2010,682,Mauritania,977,III.C.8.,Other managed arrangement,yes
+2010,684,Mauritius,978,III.C.9.,Floating,yes
+2010,688,Mozambique,978,III.C.9.,Floating,yes
+2010,728,Namibia,973,III.C.3.,Conventional peg,yes
+2010,692,Niger,973,III.C.3.,Conventional peg,yes
+2010,694,Nigeria,977,III.C.8.,Other managed arrangement,yes
+2010,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2010,722,Senegal,973,III.C.3.,Conventional peg,yes
+2010,724,Sierra Leone,978,III.C.9.,Floating,yes
+2010,726,Somalia,979,III.C.10.,Free floating,yes
+2010,199,South Africa,978,III.C.9.,Floating,yes
+2010,732,Sudan,977,III.C.8.,Other managed arrangement,yes
+2010,738,Tanzania,978,III.C.9.,Floating,yes
+2010,742,Togo,973,III.C.3.,Conventional peg,yes
+2010,746,Uganda,978,III.C.9.,Floating,yes
+2010,754,Zambia,978,III.C.9.,Floating,yes
+2010,698,Zimbabwe,971,III.C.1.,No separate legal tender,yes
+2011,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2011,614,Angola,974,III.C.4.,Stabilized arrangement,yes
+2011,638,Benin,973,III.C.3.,Conventional peg,yes
+2011,616,Botswana,159,III.C.5.,Crawling peg,yes
+2011,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2011,618,Burundi,977,III.C.8.,Other managed arrangement,yes
+2011,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2011,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2011,628,Chad,973,III.C.3.,Conventional peg,yes
+2011,636,"Congo, Democratic Republic of the",977,III.C.8.,Other managed arrangement,yes
+2011,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2011,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2011,611,Djibouti,972,III.C.2.,Currency board,yes
+2011,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2011,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2011,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2011,646,Gabon,973,III.C.3.,Conventional peg,yes
+2011,648,"Gambia, The",978,III.C.9.,Floating,yes
+2011,652,Ghana,978,III.C.9.,Floating,yes
+2011,656,Guinea,977,III.C.8.,Other managed arrangement,yes
+2011,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2011,664,Kenya,978,III.C.9.,Floating,yes
+2011,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2011,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2011,674,Madagascar,978,III.C.9.,Floating,yes
+2011,676,Malawi,977,III.C.8.,Other managed arrangement,yes
+2011,678,Mali,973,III.C.3.,Conventional peg,yes
+2011,682,Mauritania,977,III.C.8.,Other managed arrangement,yes
+2011,684,Mauritius,978,III.C.9.,Floating,yes
+2011,688,Mozambique,978,III.C.9.,Floating,yes
+2011,728,Namibia,973,III.C.3.,Conventional peg,yes
+2011,692,Niger,973,III.C.3.,Conventional peg,yes
+2011,694,Nigeria,977,III.C.8.,Other managed arrangement,yes
+2011,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2011,722,Senegal,973,III.C.3.,Conventional peg,yes
+2011,724,Sierra Leone,978,III.C.9.,Floating,yes
+2011,726,Somalia,979,III.C.10.,Free floating,yes
+2011,199,South Africa,978,III.C.9.,Floating,yes
+2011,732,Sudan,977,III.C.8.,Other managed arrangement,yes
+2011,738,Tanzania,978,III.C.9.,Floating,yes
+2011,742,Togo,973,III.C.3.,Conventional peg,yes
+2011,746,Uganda,978,III.C.9.,Floating,yes
+2011,754,Zambia,978,III.C.9.,Floating,yes
+2011,698,Zimbabwe,971,III.C.1.,No separate legal tender,yes
+2012,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2012,614,Angola,974,III.C.4.,Stabilized arrangement,yes
+2012,638,Benin,973,III.C.3.,Conventional peg,yes
+2012,616,Botswana,159,III.C.5.,Crawling peg,yes
+2012,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2012,618,Burundi,977,III.C.8.,Other managed arrangement,yes
+2012,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2012,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2012,628,Chad,973,III.C.3.,Conventional peg,yes
+2012,636,"Congo, Democratic Republic of the",974,III.C.4.,Stabilized arrangement,yes
+2012,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2012,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2012,611,Djibouti,972,III.C.2.,Currency board,yes
+2012,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2012,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2012,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2012,646,Gabon,973,III.C.3.,Conventional peg,yes
+2012,648,"Gambia, The",978,III.C.9.,Floating,yes
+2012,652,Ghana,978,III.C.9.,Floating,yes
+2012,656,Guinea,977,III.C.8.,Other managed arrangement,yes
+2012,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2012,664,Kenya,978,III.C.9.,Floating,yes
+2012,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2012,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2012,674,Madagascar,978,III.C.9.,Floating,yes
+2012,676,Malawi,977,III.C.8.,Other managed arrangement,yes
+2012,678,Mali,973,III.C.3.,Conventional peg,yes
+2012,682,Mauritania,977,III.C.8.,Other managed arrangement,yes
+2012,684,Mauritius,978,III.C.9.,Floating,yes
+2012,688,Mozambique,978,III.C.9.,Floating,yes
+2012,728,Namibia,973,III.C.3.,Conventional peg,yes
+2012,692,Niger,973,III.C.3.,Conventional peg,yes
+2012,694,Nigeria,977,III.C.8.,Other managed arrangement,yes
+2012,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2012,722,Senegal,973,III.C.3.,Conventional peg,yes
+2012,724,Sierra Leone,978,III.C.9.,Floating,yes
+2012,726,Somalia,979,III.C.10.,Free floating,yes
+2012,199,South Africa,978,III.C.9.,Floating,yes
+2012,733,South Sudan,973,III.C.3.,Conventional peg,yes
+2012,732,Sudan,977,III.C.8.,Other managed arrangement,yes
+2012,738,Tanzania,978,III.C.9.,Floating,yes
+2012,742,Togo,973,III.C.3.,Conventional peg,yes
+2012,746,Uganda,978,III.C.9.,Floating,yes
+2012,754,Zambia,978,III.C.9.,Floating,yes
+2012,698,Zimbabwe,971,III.C.1.,No separate legal tender,yes
+2013,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2013,614,Angola,974,III.C.4.,Stabilized arrangement,yes
+2013,638,Benin,973,III.C.3.,Conventional peg,yes
+2013,616,Botswana,159,III.C.5.,Crawling peg,yes
+2013,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2013,618,Burundi,974,III.C.4.,Stabilized arrangement,yes
+2013,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2013,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2013,628,Chad,973,III.C.3.,Conventional peg,yes
+2013,636,"Congo, Democratic Republic of the",974,III.C.4.,Stabilized arrangement,yes
+2013,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2013,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2013,611,Djibouti,972,III.C.2.,Currency board,yes
+2013,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2013,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2013,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2013,646,Gabon,973,III.C.3.,Conventional peg,yes
+2013,648,"Gambia, The",977,III.C.8.,Other managed arrangement,yes
+2013,652,Ghana,978,III.C.9.,Floating,yes
+2013,656,Guinea,974,III.C.4.,Stabilized arrangement,yes
+2013,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2013,664,Kenya,978,III.C.9.,Floating,yes
+2013,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2013,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2013,674,Madagascar,978,III.C.9.,Floating,yes
+2013,676,Malawi,978,III.C.9.,Floating,yes
+2013,678,Mali,973,III.C.3.,Conventional peg,yes
+2013,682,Mauritania,977,III.C.8.,Other managed arrangement,yes
+2013,684,Mauritius,978,III.C.9.,Floating,yes
+2013,688,Mozambique,978,III.C.9.,Floating,yes
+2013,728,Namibia,973,III.C.3.,Conventional peg,yes
+2013,692,Niger,973,III.C.3.,Conventional peg,yes
+2013,694,Nigeria,977,III.C.8.,Other managed arrangement,yes
+2013,714,Rwanda,977,III.C.8.,Other managed arrangement,yes
+2013,722,Senegal,973,III.C.3.,Conventional peg,yes
+2013,724,Sierra Leone,978,III.C.9.,Floating,yes
+2013,726,Somalia,979,III.C.10.,Free floating,yes
+2013,199,South Africa,978,III.C.9.,Floating,yes
+2013,733,South Sudan,973,III.C.3.,Conventional peg,yes
+2013,732,Sudan,977,III.C.8.,Other managed arrangement,yes
+2013,738,Tanzania,978,III.C.9.,Floating,yes
+2013,742,Togo,973,III.C.3.,Conventional peg,yes
+2013,746,Uganda,978,III.C.9.,Floating,yes
+2013,754,Zambia,978,III.C.9.,Floating,yes
+2013,698,Zimbabwe,971,III.C.1.,No separate legal tender,yes
+2014,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2014,614,Angola,975,III.C.6.,Crawl-like arrangement,yes
+2014,638,Benin,973,III.C.3.,Conventional peg,yes
+2014,616,Botswana,159,III.C.5.,Crawling peg,yes
+2014,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2014,618,Burundi,974,III.C.4.,Stabilized arrangement,yes
+2014,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2014,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2014,628,Chad,973,III.C.3.,Conventional peg,yes
+2014,636,"Congo, Democratic Republic of the",974,III.C.4.,Stabilized arrangement,yes
+2014,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2014,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2014,611,Djibouti,972,III.C.2.,Currency board,yes
+2014,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2014,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2014,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2014,646,Gabon,973,III.C.3.,Conventional peg,yes
+2014,648,"Gambia, The",978,III.C.9.,Floating,yes
+2014,652,Ghana,978,III.C.9.,Floating,yes
+2014,656,Guinea,974,III.C.4.,Stabilized arrangement,yes
+2014,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2014,664,Kenya,978,III.C.9.,Floating,yes
+2014,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2014,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2014,674,Madagascar,978,III.C.9.,Floating,yes
+2014,676,Malawi,978,III.C.9.,Floating,yes
+2014,678,Mali,973,III.C.3.,Conventional peg,yes
+2014,682,Mauritania,974,III.C.4.,Stabilized arrangement,yes
+2014,684,Mauritius,978,III.C.9.,Floating,yes
+2014,688,Mozambique,978,III.C.9.,Floating,yes
+2014,728,Namibia,973,III.C.3.,Conventional peg,yes
+2014,692,Niger,973,III.C.3.,Conventional peg,yes
+2014,694,Nigeria,977,III.C.8.,Other managed arrangement,yes
+2014,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2014,722,Senegal,973,III.C.3.,Conventional peg,yes
+2014,724,Sierra Leone,978,III.C.9.,Floating,yes
+2014,726,Somalia,979,III.C.10.,Free floating,yes
+2014,199,South Africa,978,III.C.9.,Floating,yes
+2014,733,South Sudan,973,III.C.3.,Conventional peg,yes
+2014,732,Sudan,977,III.C.8.,Other managed arrangement,yes
+2014,738,Tanzania,978,III.C.9.,Floating,yes
+2014,742,Togo,973,III.C.3.,Conventional peg,yes
+2014,746,Uganda,978,III.C.9.,Floating,yes
+2014,754,Zambia,978,III.C.9.,Floating,yes
+2014,698,Zimbabwe,971,III.C.1.,No separate legal tender,yes
+2015,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2015,614,Angola,977,III.C.8.,Other managed arrangement,yes
+2015,638,Benin,973,III.C.3.,Conventional peg,yes
+2015,616,Botswana,159,III.C.5.,Crawling peg,yes
+2015,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2015,618,Burundi,974,III.C.4.,Stabilized arrangement,yes
+2015,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2015,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2015,628,Chad,973,III.C.3.,Conventional peg,yes
+2015,636,"Congo, Democratic Republic of the",974,III.C.4.,Stabilized arrangement,yes
+2015,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2015,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2015,611,Djibouti,972,III.C.2.,Currency board,yes
+2015,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2015,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2015,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2015,646,Gabon,973,III.C.3.,Conventional peg,yes
+2015,648,"Gambia, The",977,III.C.8.,Other managed arrangement,yes
+2015,652,Ghana,978,III.C.9.,Floating,yes
+2015,656,Guinea,977,III.C.8.,Other managed arrangement,yes
+2015,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2015,664,Kenya,978,III.C.9.,Floating,yes
+2015,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2015,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2015,674,Madagascar,978,III.C.9.,Floating,yes
+2015,676,Malawi,978,III.C.9.,Floating,yes
+2015,678,Mali,973,III.C.3.,Conventional peg,yes
+2015,682,Mauritania,975,III.C.6.,Crawl-like arrangement,yes
+2015,684,Mauritius,978,III.C.9.,Floating,yes
+2015,688,Mozambique,978,III.C.9.,Floating,yes
+2015,728,Namibia,973,III.C.3.,Conventional peg,yes
+2015,692,Niger,973,III.C.3.,Conventional peg,yes
+2015,694,Nigeria,974,III.C.4.,Stabilized arrangement,yes
+2015,714,Rwanda,977,III.C.8.,Other managed arrangement,yes
+2015,722,Senegal,973,III.C.3.,Conventional peg,yes
+2015,724,Sierra Leone,978,III.C.9.,Floating,yes
+2015,726,Somalia,979,III.C.10.,Free floating,yes
+2015,199,South Africa,978,III.C.9.,Floating,yes
+2015,733,South Sudan,977,III.C.8.,Other managed arrangement,yes
+2015,732,Sudan,974,III.C.4.,Stabilized arrangement,yes
+2015,738,Tanzania,978,III.C.9.,Floating,yes
+2015,742,Togo,973,III.C.3.,Conventional peg,yes
+2015,746,Uganda,978,III.C.9.,Floating,yes
+2015,754,Zambia,978,III.C.9.,Floating,yes
+2015,698,Zimbabwe,971,III.C.1.,No separate legal tender,yes
+2016,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2016,614,Angola,974,III.C.4.,Stabilized arrangement,yes
+2016,638,Benin,973,III.C.3.,Conventional peg,yes
+2016,616,Botswana,159,III.C.5.,Crawling peg,yes
+2016,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2016,618,Burundi,975,III.C.6.,Crawl-like arrangement,yes
+2016,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2016,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2016,628,Chad,973,III.C.3.,Conventional peg,yes
+2016,636,"Congo, Democratic Republic of the",977,III.C.8.,Other managed arrangement,yes
+2016,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2016,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2016,611,Djibouti,972,III.C.2.,Currency board,yes
+2016,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2016,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2016,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2016,646,Gabon,973,III.C.3.,Conventional peg,yes
+2016,648,"Gambia, The",977,III.C.8.,Other managed arrangement,yes
+2016,652,Ghana,978,III.C.9.,Floating,yes
+2016,656,Guinea,977,III.C.8.,Other managed arrangement,yes
+2016,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2016,664,Kenya,974,III.C.4.,Stabilized arrangement,yes
+2016,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2016,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2016,674,Madagascar,978,III.C.9.,Floating,yes
+2016,676,Malawi,974,III.C.4.,Stabilized arrangement,yes
+2016,678,Mali,973,III.C.3.,Conventional peg,yes
+2016,682,Mauritania,975,III.C.6.,Crawl-like arrangement,yes
+2016,684,Mauritius,978,III.C.9.,Floating,yes
+2016,688,Mozambique,978,III.C.9.,Floating,yes
+2016,728,Namibia,973,III.C.3.,Conventional peg,yes
+2016,692,Niger,973,III.C.3.,Conventional peg,yes
+2016,694,Nigeria,974,III.C.4.,Stabilized arrangement,yes
+2016,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2016,722,Senegal,973,III.C.3.,Conventional peg,yes
+2016,724,Sierra Leone,977,III.C.8.,Other managed arrangement,yes
+2016,726,Somalia,979,III.C.10.,Free floating,yes
+2016,199,South Africa,978,III.C.9.,Floating,yes
+2016,733,South Sudan,977,III.C.8.,Other managed arrangement,yes
+2016,732,Sudan,974,III.C.4.,Stabilized arrangement,yes
+2016,738,Tanzania,974,III.C.4.,Stabilized arrangement,yes
+2016,742,Togo,973,III.C.3.,Conventional peg,yes
+2016,746,Uganda,978,III.C.9.,Floating,yes
+2016,754,Zambia,978,III.C.9.,Floating,yes
+2016,698,Zimbabwe,977,III.C.8.,Other managed arrangement,yes
+2017,612,Algeria,977,III.C.8.,Other managed arrangement,yes
+2017,614,Angola,974,III.C.4.,Stabilized arrangement,yes
+2017,638,Benin,973,III.C.3.,Conventional peg,yes
+2017,616,Botswana,159,III.C.5.,Crawling peg,yes
+2017,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2017,618,Burundi,975,III.C.6.,Crawl-like arrangement,yes
+2017,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2017,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2017,628,Chad,973,III.C.3.,Conventional peg,yes
+2017,636,"Congo, Democratic Republic of the",977,III.C.8.,Other managed arrangement,yes
+2017,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2017,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2017,611,Djibouti,972,III.C.2.,Currency board,yes
+2017,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2017,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2017,644,Ethiopia,974,III.C.4.,Stabilized arrangement,yes
+2017,646,Gabon,973,III.C.3.,Conventional peg,yes
+2017,648,"Gambia, The",977,III.C.8.,Other managed arrangement,yes
+2017,652,Ghana,978,III.C.9.,Floating,yes
+2017,656,Guinea,974,III.C.4.,Stabilized arrangement,yes
+2017,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2017,664,Kenya,974,III.C.4.,Stabilized arrangement,yes
+2017,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2017,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2017,674,Madagascar,978,III.C.9.,Floating,yes
+2017,676,Malawi,974,III.C.4.,Stabilized arrangement,yes
+2017,678,Mali,973,III.C.3.,Conventional peg,yes
+2017,682,Mauritania,975,III.C.6.,Crawl-like arrangement,yes
+2017,684,Mauritius,978,III.C.9.,Floating,yes
+2017,688,Mozambique,978,III.C.9.,Floating,yes
+2017,728,Namibia,973,III.C.3.,Conventional peg,yes
+2017,692,Niger,973,III.C.3.,Conventional peg,yes
+2017,694,Nigeria,974,III.C.4.,Stabilized arrangement,yes
+2017,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2017,722,Senegal,973,III.C.3.,Conventional peg,yes
+2017,724,Sierra Leone,977,III.C.8.,Other managed arrangement,yes
+2017,726,Somalia,979,III.C.10.,Free floating,yes
+2017,199,South Africa,978,III.C.9.,Floating,yes
+2017,733,South Sudan,974,III.C.4.,Stabilized arrangement,yes
+2017,732,Sudan,977,III.C.8.,Other managed arrangement,yes
+2017,738,Tanzania,974,III.C.4.,Stabilized arrangement,yes
+2017,742,Togo,973,III.C.3.,Conventional peg,yes
+2017,746,Uganda,978,III.C.9.,Floating,yes
+2017,754,Zambia,978,III.C.9.,Floating,yes
+2017,698,Zimbabwe,977,III.C.8.,Other managed arrangement,yes
+2018,612,Algeria,975,III.C.6.,Crawl-like arrangement,yes
+2018,614,Angola,977,III.C.8.,Other managed arrangement,yes
+2018,638,Benin,973,III.C.3.,Conventional peg,yes
+2018,616,Botswana,159,III.C.5.,Crawling peg,yes
+2018,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2018,618,Burundi,975,III.C.6.,Crawl-like arrangement,yes
+2018,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2018,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2018,628,Chad,973,III.C.3.,Conventional peg,yes
+2018,636,"Congo, Democratic Republic of the",974,III.C.4.,Stabilized arrangement,yes
+2018,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2018,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2018,611,Djibouti,972,III.C.2.,Currency board,yes
+2018,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2018,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2018,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2018,646,Gabon,973,III.C.3.,Conventional peg,yes
+2018,648,"Gambia, The",977,III.C.8.,Other managed arrangement,yes
+2018,652,Ghana,978,III.C.9.,Floating,yes
+2018,656,Guinea,974,III.C.4.,Stabilized arrangement,yes
+2018,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2018,664,Kenya,977,III.C.8.,Other managed arrangement,yes
+2018,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2018,668,Liberia,975,III.C.6.,Crawl-like arrangement,yes
+2018,674,Madagascar,978,III.C.9.,Floating,yes
+2018,676,Malawi,974,III.C.4.,Stabilized arrangement,yes
+2018,678,Mali,973,III.C.3.,Conventional peg,yes
+2018,682,Mauritania,975,III.C.6.,Crawl-like arrangement,yes
+2018,684,Mauritius,978,III.C.9.,Floating,yes
+2018,688,Mozambique,978,III.C.9.,Floating,yes
+2018,728,Namibia,973,III.C.3.,Conventional peg,yes
+2018,692,Niger,973,III.C.3.,Conventional peg,yes
+2018,694,Nigeria,974,III.C.4.,Stabilized arrangement,yes
+2018,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2018,722,Senegal,973,III.C.3.,Conventional peg,yes
+2018,724,Sierra Leone,977,III.C.8.,Other managed arrangement,yes
+2018,726,Somalia,979,III.C.10.,Free floating,yes
+2018,199,South Africa,978,III.C.9.,Floating,yes
+2018,733,South Sudan,975,III.C.6.,Crawl-like arrangement,yes
+2018,732,Sudan,974,III.C.4.,Stabilized arrangement,yes
+2018,738,Tanzania,975,III.C.6.,Crawl-like arrangement,yes
+2018,742,Togo,973,III.C.3.,Conventional peg,yes
+2018,746,Uganda,978,III.C.9.,Floating,yes
+2018,754,Zambia,978,III.C.9.,Floating,yes
+2018,698,Zimbabwe,978,III.C.9.,Floating,yes
+2019,612,Algeria,975,III.C.6.,Crawl-like arrangement,yes
+2019,614,Angola,977,III.C.8.,Other managed arrangement,yes
+2019,638,Benin,973,III.C.3.,Conventional peg,yes
+2019,616,Botswana,159,III.C.5.,Crawling peg,yes
+2019,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2019,618,Burundi,975,III.C.6.,Crawl-like arrangement,yes
+2019,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2019,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2019,628,Chad,973,III.C.3.,Conventional peg,yes
+2019,636,"Congo, Democratic Republic of the",975,III.C.6.,Crawl-like arrangement,yes
+2019,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2019,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2019,611,Djibouti,972,III.C.2.,Currency board,yes
+2019,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2019,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2019,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2019,646,Gabon,973,III.C.3.,Conventional peg,yes
+2019,648,"Gambia, The",977,III.C.8.,Other managed arrangement,yes
+2019,652,Ghana,978,III.C.9.,Floating,yes
+2019,656,Guinea,975,III.C.6.,Crawl-like arrangement,yes
+2019,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2019,664,Kenya,977,III.C.8.,Other managed arrangement,yes
+2019,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2019,668,Liberia,975,III.C.6.,Crawl-like arrangement,yes
+2019,674,Madagascar,978,III.C.9.,Floating,yes
+2019,676,Malawi,974,III.C.4.,Stabilized arrangement,yes
+2019,678,Mali,973,III.C.3.,Conventional peg,yes
+2019,682,Mauritania,975,III.C.6.,Crawl-like arrangement,yes
+2019,684,Mauritius,978,III.C.9.,Floating,yes
+2019,688,Mozambique,978,III.C.9.,Floating,yes
+2019,728,Namibia,973,III.C.3.,Conventional peg,yes
+2019,692,Niger,973,III.C.3.,Conventional peg,yes
+2019,694,Nigeria,974,III.C.4.,Stabilized arrangement,yes
+2019,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2019,722,Senegal,973,III.C.3.,Conventional peg,yes
+2019,724,Sierra Leone,977,III.C.8.,Other managed arrangement,yes
+2019,726,Somalia,979,III.C.10.,Free floating,yes
+2019,199,South Africa,978,III.C.9.,Floating,yes
+2019,733,South Sudan,975,III.C.6.,Crawl-like arrangement,yes
+2019,732,Sudan,974,III.C.4.,Stabilized arrangement,yes
+2019,738,Tanzania,974,III.C.4.,Stabilized arrangement,yes
+2019,742,Togo,973,III.C.3.,Conventional peg,yes
+2019,746,Uganda,978,III.C.9.,Floating,yes
+2019,754,Zambia,978,III.C.9.,Floating,yes
+2019,698,Zimbabwe,977,III.C.8.,Other managed arrangement,yes
+2020,612,Algeria,974,III.C.4.,Stabilized arrangement,yes
+2020,614,Angola,978,III.C.9.,Floating,yes
+2020,638,Benin,973,III.C.3.,Conventional peg,yes
+2020,616,Botswana,159,III.C.5.,Crawling peg,yes
+2020,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2020,618,Burundi,975,III.C.6.,Crawl-like arrangement,yes
+2020,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2020,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2020,628,Chad,973,III.C.3.,Conventional peg,yes
+2020,636,"Congo, Democratic Republic of the",975,III.C.6.,Crawl-like arrangement,yes
+2020,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2020,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2020,611,Djibouti,972,III.C.2.,Currency board,yes
+2020,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2020,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2020,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2020,646,Gabon,973,III.C.3.,Conventional peg,yes
+2020,648,"Gambia, The",974,III.C.4.,Stabilized arrangement,yes
+2020,652,Ghana,975,III.C.6.,Crawl-like arrangement,yes
+2020,656,Guinea,975,III.C.6.,Crawl-like arrangement,yes
+2020,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2020,664,Kenya,977,III.C.8.,Other managed arrangement,yes
+2020,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2020,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2020,674,Madagascar,978,III.C.9.,Floating,yes
+2020,676,Malawi,975,III.C.6.,Crawl-like arrangement,yes
+2020,678,Mali,973,III.C.3.,Conventional peg,yes
+2020,682,Mauritania,975,III.C.6.,Crawl-like arrangement,yes
+2020,684,Mauritius,978,III.C.9.,Floating,yes
+2020,688,Mozambique,975,III.C.6.,Crawl-like arrangement,yes
+2020,728,Namibia,973,III.C.3.,Conventional peg,yes
+2020,692,Niger,973,III.C.3.,Conventional peg,yes
+2020,694,Nigeria,974,III.C.4.,Stabilized arrangement,yes
+2020,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2020,722,Senegal,973,III.C.3.,Conventional peg,yes
+2020,724,Sierra Leone,977,III.C.8.,Other managed arrangement,yes
+2020,726,Somalia,979,III.C.10.,Free floating,yes
+2020,199,South Africa,978,III.C.9.,Floating,yes
+2020,733,South Sudan,975,III.C.6.,Crawl-like arrangement,yes
+2020,732,Sudan,974,III.C.4.,Stabilized arrangement,yes
+2020,738,Tanzania,974,III.C.4.,Stabilized arrangement,yes
+2020,742,Togo,973,III.C.3.,Conventional peg,yes
+2020,746,Uganda,978,III.C.9.,Floating,yes
+2020,754,Zambia,975,III.C.6.,Crawl-like arrangement,yes
+2020,698,Zimbabwe,977,III.C.8.,Other managed arrangement,yes
+2021,612,Algeria,975,III.C.6.,Crawl-like arrangement,yes
+2021,614,Angola,978,III.C.9.,Floating,yes
+2021,638,Benin,973,III.C.3.,Conventional peg,yes
+2021,616,Botswana,159,III.C.5.,Crawling peg,yes
+2021,748,Burkina Faso,973,III.C.3.,Conventional peg,yes
+2021,618,Burundi,975,III.C.6.,Crawl-like arrangement,yes
+2021,622,Cameroon,973,III.C.3.,Conventional peg,yes
+2021,626,Central African Republic,973,III.C.3.,Conventional peg,yes
+2021,628,Chad,973,III.C.3.,Conventional peg,yes
+2021,636,"Congo, Democratic Republic of the",975,III.C.6.,Crawl-like arrangement,yes
+2021,634,"Congo, Republic of",973,III.C.3.,Conventional peg,yes
+2021,662,C™te d_Ivoire,973,III.C.3.,Conventional peg,yes
+2021,611,Djibouti,972,III.C.2.,Currency board,yes
+2021,643,Eritrea,973,III.C.3.,Conventional peg,yes
+2021,734,Eswatini,973,III.C.3.,Conventional peg,yes
+2021,644,Ethiopia,975,III.C.6.,Crawl-like arrangement,yes
+2021,646,Gabon,973,III.C.3.,Conventional peg,yes
+2021,648,"Gambia, The",975,III.C.6.,Crawl-like arrangement,yes
+2021,652,Ghana,975,III.C.6.,Crawl-like arrangement,yes
+2021,656,Guinea,975,III.C.6.,Crawl-like arrangement,yes
+2021,654,Guinea-Bissau,973,III.C.3.,Conventional peg,yes
+2021,664,Kenya,975,III.C.6.,Crawl-like arrangement,yes
+2021,666,Lesotho,973,III.C.3.,Conventional peg,yes
+2021,668,Liberia,977,III.C.8.,Other managed arrangement,yes
+2021,674,Madagascar,978,III.C.9.,Floating,yes
+2021,676,Malawi,974,III.C.4.,Stabilized arrangement,yes
+2021,678,Mali,973,III.C.3.,Conventional peg,yes
+2021,682,Mauritania,975,III.C.6.,Crawl-like arrangement,yes
+2021,684,Mauritius,975,III.C.6.,Crawl-like arrangement,yes
+2021,688,Mozambique,974,III.C.4.,Stabilized arrangement,yes
+2021,728,Namibia,973,III.C.3.,Conventional peg,yes
+2021,692,Niger,973,III.C.3.,Conventional peg,yes
+2021,694,Nigeria,974,III.C.4.,Stabilized arrangement,yes
+2021,714,Rwanda,975,III.C.6.,Crawl-like arrangement,yes
+2021,722,Senegal,973,III.C.3.,Conventional peg,yes
+2021,724,Sierra Leone,977,III.C.8.,Other managed arrangement,yes
+2021,726,Somalia,979,III.C.10.,Free floating,yes
+2021,199,South Africa,978,III.C.9.,Floating,yes
+2021,733,South Sudan,977,III.C.8.,Other managed arrangement,yes
+2021,732,Sudan,974,III.C.4.,Stabilized arrangement,yes
+2021,738,Tanzania,974,III.C.4.,Stabilized arrangement,yes
+2021,742,Togo,973,III.C.3.,Conventional peg,yes
+2021,746,Uganda,978,III.C.9.,Floating,yes
+2021,754,Zambia,978,III.C.9.,Floating,yes
+2021,698,Zimbabwe,977,III.C.8.,Other managed arrangement,yes

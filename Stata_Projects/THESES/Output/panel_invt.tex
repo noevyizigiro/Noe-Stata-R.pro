@@ -1,0 +1,31 @@
+\begin{table}[H]  \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi} \caption{Exchange Rate Volatility and Investments} \begin{adjustbox}{max width=\textwidth} \begin{tabular}{l*{7}{c}} \\ \hline\hline
+            &\multicolumn{3}{c}{OLS}                                          &\multicolumn{4}{c}{IV-2SLS}                                                            \\\cmidrule(lr){2-4}\cmidrule(lr){5-8}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         &\multicolumn{1}{c}{(7)}         \\
+\hline\addlinespace \multicolumn{7}{l}{\textbf{\textit{Panel A: FDI Inflow}}} \\  \addlinespace[10pt]
+Exchange Rate Volatility&       0.148         &       0.170         &       0.040         &       0.384\sym{***}&       0.523\sym{**} &       1.016         &       1.816         \\
+            &     (0.097)         &     (0.105)         &     (0.094)         &     (0.141)         &     (0.256)         &     (0.628)         &     (1.128)         \\
+\midrule
+\(N\)       &         510         &         510         &         355         &         510         &         456         &         439         &         355         \\
+R-Squared   &       0.039         &       0.341         &       0.528         &       0.277         &       0.197         &       0.010         &           .         \\
+\hline\addlinespace \multicolumn{7}{l}{\textbf{\textit{Panel B: Gross Domestic Investment}}} \\  \addlinespace[10pt]
+Exchange Rate Volatility&      -0.114\sym{*}  &      -0.017         &       0.072         &      -1.075\sym{**} &      -1.293\sym{*}  &      -2.743         &      -2.144\sym{*}  \\
+            &     (0.058)         &     (0.055)         &     (0.083)         &     (0.461)         &     (0.724)         &     (1.671)         &     (1.286)         \\
+\midrule
+\(N\)       &         450         &         450         &         355         &         450         &         406         &         389         &         355         \\
+R-Squared   &       0.006         &       0.475         &       0.696         &       0.049         &           .         &           .         &           .         \\
+\hline\addlinespace \multicolumn{7}{l}{\textbf{\textit{Panel C: Public Investment}}} \\  \addlinespace[10pt]
+Exchange Rate Volatility&      -0.071\sym{**} &      -0.063\sym{**} &       0.035         &      -0.484\sym{***}&      -0.661\sym{**} &      -1.372\sym{**} &      -1.364         \\
+            &     (0.029)         &     (0.024)         &     (0.076)         &     (0.166)         &     (0.271)         &     (0.637)         &     (0.854)         \\
+\midrule
+\(N\)       &         494         &         494         &         346         &         494         &         442         &         425         &         346         \\
+R-Squared   &       0.008         &       0.549         &       0.624         &       0.338         &       0.300         &           .         &           .         \\
+\hline \addlinespace \multicolumn{7}{l}{\textbf{\textit{Panel D: Private Investment}}} \\  \addlinespace[10pt]
+Exchange Rate Volatility&       0.137         &       0.199         &      -0.000         &      -0.092         &      -0.091         &      -0.439         &      -0.299         \\
+            &     (0.169)         &     (0.133)         &     (0.115)         &     (0.262)         &     (0.321)         &     (0.634)         &     (0.940)         \\
+\midrule
+\(N\)       &         494         &         494         &         346         &         494         &         442         &         425         &         346         \\
+R-Squared   &       0.005         &       0.754         &       0.819         &       0.736         &       0.777         &       0.764         &       0.814         \\
+Currency fixed-effects&          No         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+Time Fixed-effects&          No         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+Controls    &          No         &          No         &         Yes         &          No         &         Yes         &         Yes         &         Yes         \\
+\bottomrule \end{tabular} \end{adjustbox} \\                 \footnotesize \item This is a panel of all investments used in this study. Robust standard errors are in parentheses. Model 1-3 are estimated with simple OLS and 4-7 are estimated with two-stage instrumental variable method. Each panel has its own outcome variable. Column 1 and 4 are run without controls and controls are included for other columns( See Appendix section for detailed regression tables with all the controls showns). Also, fixed effects are included in certain columns(see on the bottom of panel D for more information about each column). All the outcome variables are expressed as percentage of GDP. The sample include 26 currencies, used in 36 sub-Saharan African countries covering a period of 1999-2021 (only for FDI and domestic investment) and 1999-2017 (for public and private investment).The Stars are significant level where * 0.10 ** 0.05 *** 0.01. \end{table}
